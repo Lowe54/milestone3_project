@@ -58,7 +58,7 @@ The site is available to view via [here](https://)
 There are multiple steps to deployment, which are detailed below
 
 ### MongoDB
-[SecurityTab]: readme_images/mongodb/security.png
+[SecurityTab]: readme_images/mongodb/Security.png
 [NewUserLoc]:  readme_images/mongodb/Security_Add_New_User.png
 [IPWhitelist]: readme_images/mongodb/IP_Whitelist.png
 [IPPopup]: readme_images/mongodb/IP_Popup.png

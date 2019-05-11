@@ -1,0 +1,27 @@
+db.createCollection("recipies", {
+	validator: {
+		$jsonSchema: {
+		bsonType: "object",
+		required: ["recipie_title", "recipie_instructions", "recipie_ingredients.name", "recipie_allergins"],
+		properties:{
+			recipie_title:{
+				bsonType:"string",
+				description:"The title must be a string and is required"
+			},
+			recipie_instructions:{
+				bsonType:"string",
+				description:"The recipie instructions must be a string and is required"
+			},
+			"recipie_ingredients.name": {
+				bsonType:"string",
+				description:"The recipie ingredient name must be a string and is required"
+			},
+			recipie_allergins: {
+				enum: [ "Gluten", "Crustacean", "Eggs", "Fish", "Peanuts", "Soybeans", "Milk", "Nuts", "Celery", "Mustard", "Sesame", "Lupin", "Molluscs", null ],
+				description:"The recipie allergins can only be one of the enum values and is required"
+			}
+		}
+		}
+	}
+
+})

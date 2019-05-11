@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div id="results">
+        {% for res in results  %}
+            {% if loop.index > sr and loop.index <= sr + 10 %}
+                <p>{{loop.index}} - {{res}}</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% if pc is defined %}       
+        <ul id="pagination">
+            {% for pn in range(pc) %}
+                {% if loop.first %}
+                <li><a href="{{  url_for('results', page=pn , sr=0) }}">{{pn}}</a></li>
+                {% else %}
+                <li><a href="{{  url_for('results', page=pn + 1, sr=(pn * 10)) }}">{{pn}}</a></li>
+                {% endif %}
+            
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

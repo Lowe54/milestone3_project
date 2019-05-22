@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1>{% if edit == '1' %}Edit {% else %}Add{% endif %} a recipie</h1>
+        <div id="form-container">
+            <form method="POST" action="{{url_for('submit')}}">
+                <div class="field">
+                    <label class="label" for="recipie_title">Recipie Title</label>
+                    <input class="input is-rounded" type="text" placeholder="Text input" name="recipie_title" id="recipie_title">
+                </div>
+                <div class="field">
+                    <label class="label" for="recipie_instructions">Cooking Instructions</label>
+                    <div class="control">
+                        <textarea class="textarea is-medium" name="recipie_instructions" placeholder="Medium textarea"></textarea>
+                    </div>
+                </div>
+                <div class="field">
+                        <label class="label" for="recipie_ingredients">Cooking Instructions</label>
+                        <textarea class="textarea is-medium"  name="recipie_ingredients" id="recipie_ingredients"  placeholder="Recipie Ingredients"></textarea>
+                </div>
+                <div class="field">
+                    <label class="label" for="recipie_allergins">Does this recipie contain any of the following allergins (Tick all that apply)</label>
+                    <div class="control">
+                    {% for allergin in allerginlist %}
+                    <label class="checkbox">
+                        <input type="checkbox" name="recipie_allergins" value="{{allergin}}">
+                        {{allergin}}
+                    </label>
+                     <br/>
+                    {% endfor %}
+                    </div>
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-link is-success">Submit</button>
+                    </div>
+                    <div class="control">
+                        <button class="button is-link is-danger">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+   
+    </div>
+  </section>
+{% endblock %}

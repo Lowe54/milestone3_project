@@ -50,6 +50,7 @@ def submit():
 
     data = {"recipie_title": title, "recipie_instructions":instructions, "recipie_ingredients": ingredients,"recipie_allergins": allergins}
     recipies = mongo.db.recipies
+    #Bypassing validation for the time being
     recipies.insert_one(data, bypass_document_validation=True)
     return redirect('/results/')
 
@@ -74,15 +75,18 @@ def results():
 
     #TODO : Change this to fetch information from the DB
     #resultnum = ['Joseph Allen', 'Autumn Welch', 'Valerie Fields', 'Margaret Mccarty', 'Patricia Yu', 'Kelsey Burton', 'Charles Chandler', 'Michelle Washington', 'Wendy Morris', 'Sherri Perez', 'Holly Campbell', 'Karen Cisneros MD', 'Jessica Perry', 'Kimberly Miranda', 'Michael Lawrence']
-    resultnum = mongo.db.recipies.find()
-    
+    results = []
+    recipies = mongo.db.recipies.find()
+    for r in recipies:
+        results.append(r)
     pagecount = 0
     #We set the number to 11, since it is 0 based indexing, otherwise it only shows 9 results
-    if len(resultnum) < 11:
+    if len(results) < 11:
         print("No need for extra pages here")
+        pages = 0
     else:
         #Determine the number of result pages
-        pages = int(len(resultnum) / 11)
+        pages = int(len(results) / 11)
         if pages == 0:
             pagecount = pages
             
@@ -90,6 +94,6 @@ def results():
             pagecount = pages + 1
             
       
-    return render_template('results.html', results=resultnum, c_page=currentpagenum, pc=pagecount, pages=pages, sr=sr, nh=10)
+    return render_template('results.html', results=results, c_page=currentpagenum, pc=pagecount, pages=pages, sr=sr, nh=10)
 if __name__ == '__main__':
     app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')), debug=False)

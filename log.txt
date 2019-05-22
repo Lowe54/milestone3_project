@@ -1,5 +1,0 @@
-Title is Test Recipie 
-Instructions are TEST 
-Ingredient name is None 
-Ingredient Quantity is None 
-Allergins are ['Crustacean', 'Fish', 'Sesame'] 

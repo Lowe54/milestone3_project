@@ -1,10 +1,25 @@
 {% extends 'base.html' %}
-
 {% block content %}
-    <div id="results">
+    <div class="row">
+    <div class="results-facets">
+        <h2 class="text-center">Filter your results:</h2>
+        <form method="GET">
+            <div class="form-check">
+                {% for allergin in allerginList %}
+                <label>
+                    <input type="checkbox" name="allergin" value="{{allergin}}">
+                    {{allergin}}
+                </label>
+                    <br/>
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+    <div class="result-hits">
+        <h2 class="text-center">Results {{sr}} to {% if nh > maxresults %} {{maxresults}} {% else %} {{nh}} {% endif %} of {{maxresults}}</h2>
         {% for res in results  %}
             {% if loop.index > sr and loop.index <= sr + 10 %}
-                <p>{{loop.index}} - {{res}}</p>
+                <!-- {{res.recipie_title}} -->
             {% endif %}
         {% endfor %}
     </div>
@@ -20,4 +35,5 @@
             {% endfor %}
         </ul>
     {% endif %}
+</div>
 {% endblock %}

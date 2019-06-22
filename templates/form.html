@@ -1,48 +1,64 @@
 {% extends 'base.html' %}
-
+{% block pageSpecificStyles %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/vendor/jquery-te-1.4.0.css')}}"/>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/jqte_overrides.css')}}"/>
+{% endblock %}
 {% block content %}
 <section class="section">
     <div class="container">
+        {{recipie}}
+       
         <h1>{% if edit == '1' %}Edit {% else %}Add{% endif %} a recipie</h1>
         <div id="form-container">
             <form method="POST" action="{{url_for('submit')}}">
-                <div class="field">
+                <div class="form-group">
                     <label class="label" for="recipie_title">Recipie Title</label>
-                    <input class="input is-rounded" type="text" placeholder="Text input" name="recipie_title" id="recipie_title">
+                    <input class="form-control" type="text" placeholder="Recipie Title" name="recipie_title" id="recipie_title" value="{{recipie['recipie_title']}}">
                 </div>
-                <div class="field">
+                <div class="form-group">
+                        <label class="label" for="recipie_description">Recipie Description</label>
+                        <div class="control">
+                            <textarea class="form-control" name="recipie_description" placeholder="Please enter a short description of the recipie" value="">{{recipie['recipie_description']}}</textarea>
+                        </div>
+                    </div>
+                <div class="form-group">
                     <label class="label" for="recipie_instructions">Cooking Instructions</label>
                     <div class="control">
-                        <textarea class="textarea is-medium" name="recipie_instructions" placeholder="Please enter cooking instructions"></textarea>
+                        <textarea class="form-control" name="recipie_instructions" placeholder="Please enter cooking instructions">{{recipie['recipie_instructions']}}</textarea>
                     </div>
                 </div>
-                <div class="field">
-                        <label class="label" for="recipie_ingredients">Cooking Instructions</label>
-                        <textarea class="textarea is-medium"  name="recipie_ingredients" id="recipie_ingredients"  placeholder="Recipie Ingredients"></textarea>
+                <div class="form-group">
+                        <label class="label" for="recipie_ingredients">Recipie Ingredients</label>
+                        <textarea class="form-control"  name="recipie_ingredients" id="recipie_ingredients" placeholder="Recipie Ingredients">{{recipie['recipie_ingredients']}}</textarea>
                 </div>
-                <div class="field">
+                <div class="form-group">
                     <label class="label" for="recipie_allergins">Does this recipie contain any of the following allergins (Tick all that apply)</label>
                     <div class="control">
                     {% for allergin in allerginlist %}
                     <label class="checkbox">
-                        <input type="checkbox" name="recipie_allergins" value="{{allergin}}">
+                        <input type="checkbox" name="recipie_allergins" class="form-check form-check-inline" value="{{allergin}}">
                         {{allergin}}
                     </label>
                      <br/>
                     {% endfor %}
                     </div>
                 </div>
-                <div class="field is-grouped">
-                    <div class="control">
-                        <button class="button is-link is-success">Submit</button>
-                    </div>
-                    <div class="control">
-                        <button class="button is-link is-danger">Cancel</button>
-                    </div>
+                <div class="form-group">
+                    {% if edit == '1' %}
+                        <input type="hidden" name="recipie_id" value="{{recipie['_id']}}"/>
+                    {% endif %}
+                    <button class="btn btn-success">Submit</button>
+                    <button class="btn btn-danger">Cancel</button>
                 </div>
             </form>
         </div>
-   
+        
     </div>
   </section>
+{% endblock %}
+
+{% block page_scripts %}
+<script src="{{url_for('static', filename='js/vendor/jquery-te-1.4.0.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/scripts/form_methods.js')}}"></script>
+
 {% endblock %}

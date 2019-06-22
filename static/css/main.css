@@ -1363,6 +1363,16 @@ h2 {
   flex: 0 0 66.6666666667%;
   max-width: 66.6666666667%;
   background-color: red; }
+  .result-hits .result-hit {
+    background-color: white;
+    margin: 25px; }
+    .result-hits .result-hit h4 {
+      color: black;
+      border-bottom: 3px solid black; }
+    .result-hits .result-hit footer {
+      border-top: 3px solid black; }
+      .result-hits .result-hit footer .pull-right {
+        float: right; }
 
 .results-facets {
   flex: 0 0 33.3333333333%;
@@ -1370,5 +1380,7 @@ h2 {
   background-color: green;
   color: #ffffff;
   font-weight: bold; }
+  .results-facets h3 {
+    color: #FFF; }
 
 /*# sourceMappingURL=main.css.map */

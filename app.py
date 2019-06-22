@@ -35,24 +35,35 @@ def form():
         record_id = request.args.get('id')
         enable_edit_mode = request.args.get('edit')
     else:
-        enable_edit_mode = '0'
+        enable_edit_mode = true
         record_id = ''
 
+    if enable_edit_mode:
+        rec = mongo.db.recipies.find_one({"_id": ObjectId(record_id)})
+        print(rec)
+        
     allerginlist = [ "Gluten", "Crustacean", "Eggs", "Fish", "Peanuts", "Soybeans", "Milk", "Nuts", "Celery", "Mustard", "Sesame", "Lupin", "Molluscs"]
-    return render_template('form.html', edit=enable_edit_mode, id=record_id, allerginlist=allerginlist)
+    return render_template('form.html', edit=enable_edit_mode, id=record_id, allerginlist=allerginlist,recipie=rec)
 
 @app.route('/submit', methods=["POST", "GET"])
 def submit():
     title = request.form.get('recipie_title')
+    description = request.form.get('recipie_description')
     instructions = request.form.get('recipie_instructions')
     ingredients = request.form.get('recipie_ingredients')
     allergins = request.form.getlist('recipie_allergins')
-
-    data = {"recipie_title": title, "recipie_instructions":instructions, "recipie_ingredients": ingredients,"recipie_allergins": allergins}
+    recipie_id = request.form.get('recipie_id')
+    data = {"recipie_title": title, "recipie_description": description, "recipie_instructions":instructions, "recipie_ingredients": ingredients,"recipie_allergins": allergins}
+    print (recipie_id)
     recipies = mongo.db.recipies
-    #Bypassing validation for the time being
-    recipies.insert_one(data, bypass_document_validation=True)
-    return redirect('/results/')
+    if not recipie_id:
+        #Bypassing validation for the time being
+        recipies.insert_one(data, bypass_document_validation=True)
+        return redirect('/results/')
+    else:
+        print("Else Statement")
+        recipies.update({"_id": ObjectId(recipie_id)}, data)
+        return redirect('/results/')
 
 #Results page
 @app.route('/results/')

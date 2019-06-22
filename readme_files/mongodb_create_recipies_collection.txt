@@ -15,10 +15,6 @@ db.createCollection("recipies", {
 			"recipie_ingredients": {
 				bsonType:"string",
 				description:"The recipie ingredients must be a string and is required"
-			},
-			recipie_allergins: {
-				enum: [ "Gluten", "Crustacean", "Eggs", "Fish", "Peanuts", "Soybeans", "Milk", "Nuts", "Celery", "Mustard", "Sesame", "Lupin", "Molluscs", null ],
-				description:"The recipie allergins can only be one of the enum values and is required"
 			}
 		}
 		}

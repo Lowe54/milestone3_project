@@ -3,9 +3,21 @@ h2
 .result-hits
     @include make-col(8)
     background-color: red
+    .result-hit
+        background-color: white
+        margin: 25px
+        h4
+            color: black
+            border-bottom: 3px solid black
+        footer
+            border-top: 3px solid black
+            .pull-right
+                float: right
+            
 .results-facets
     @include make-col(4)
     background-color: green
     color: #ffffff
     font-weight: bold
-
+    h3
+        color: #FFF

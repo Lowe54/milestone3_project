@@ -17,6 +17,8 @@
 
 ### Features Left to Implement
 
+-   Schema Validation of Allergins field
+    -   This was initially included, however due to time constraints and fustration I removed it in order to get the application as a whole working, otherwise each time a record was added or updated, it threw a 'Document failed Validation' error.
 
 ## Technologies Used
 
@@ -28,9 +30,12 @@ In this section, you should mention all of the languages, frameworks, libraries,
     - **CSS 3** is used to describe web pages, via color, font and other styling. In the project it is used for styling the elements on the page.
 - [JQuery](https://jquery.com)
     - The project uses **JQuery** to simplify DOM manipulation.
-- 
-- [SASS](http://sass-lang.com/) - **SASS** was used to add extra functionality to CSS, it allows for nested statements to be used, which in turn made the files easier to read.
-
+- [FontAwesome](https://fontawesome.com/)
+    - The project uses the free version of **FontAwesome** in order to add extra icons to the site
+- [SASS](http://sass-lang.com/) 
+    - **SASS** was used to add extra functionality to CSS, it allows for nested statements to be used, which in turn made the files easier to read.
+- [JQuery TE](http://jqueryte.com/)
+    - A lightweight jquery text editor used to enable WYSIWYG (What you see is what you get) functionality on the recipie form
 
 ## Testing
 

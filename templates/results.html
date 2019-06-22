@@ -5,21 +5,38 @@
         <h2 class="text-center">Filter your results:</h2>
         <form method="GET">
             <div class="form-check">
-                {% for allergin in allerginList %}
-                <label>
-                    <input type="checkbox" name="allergin" value="{{allergin}}">
-                    {{allergin}}
-                </label>
-                    <br/>
-                {% endfor %}
+                <div class="facet">
+                    <h3 data-toggle="collapse" data-target="#filter_allergin_body">Allergins&nbsp;<i class="fa fa-chevron-down"></i></h3>
+                    <div id="filter_allergin_body" class="collapse">
+                    {% for allergin in allerginList %}
+                    <label>
+                        <input type="checkbox" name="allergin" value="{{allergin}}">
+                        {{allergin}}
+                    </label>
+                        <br/>
+                    {% endfor %}
+                    </div>
+                </div>
             </div>
         </form>
     </div>
     <div class="result-hits">
         <h2 class="text-center">Results {{sr}} to {% if nh > maxresults %} {{maxresults}} {% else %} {{nh}} {% endif %} of {{maxresults}}</h2>
         {% for res in results  %}
-            {% if loop.index > sr and loop.index <= sr + 10 %}
-                <!-- {{res.recipie_title}} -->
+            {% if res.length == 0 %}
+                 NO RESULTS
+            {% else %}
+                {% if loop.index > sr and loop.index <= sr + 10 %}
+                    <div id="hit-{{res._id}}" class="result-hit">
+                        <header><h4>{{res.recipie_title}}</h4></header>
+                        <main>
+                            <p>{{res.recipie_description}}</p>
+                        </main>
+                        <footer>
+                            <a href="#" class="btn btn-info">View Full Information</a>
+                        </footer>
+                    </div>
+                {% endif %}
             {% endif %}
         {% endfor %}
     </div>

@@ -33,7 +33,7 @@
                             <p>{{res.recipie_description}}</p>
                         </main>
                         <footer>
-                            <a href="#" class="btn btn-info">View Full Information</a>
+                            <a href="{{url_for('recipie', id=res._id)}}" class="btn btn-info">View Full Information</a>
                         </footer>
                     </div>
                 {% endif %}

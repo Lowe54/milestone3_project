@@ -1383,4 +1383,21 @@ h2 {
   .results-facets h3 {
     color: #FFF; }
 
+#content {
+  display: flex; }
+
+#side_content {
+  flex: 0 0 33.3333333333%;
+  max-width: 33.3333333333%; }
+  #side_content a {
+    color: white; }
+
+#main_content {
+  flex: 0 0 66.6666666667%;
+  max-width: 66.6666666667%; }
+  #main_content .twocol-split {
+    display: inline;
+    flex: 0 0 50%;
+    max-width: 50%; }
+
 /*# sourceMappingURL=main.css.map */

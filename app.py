@@ -13,7 +13,7 @@ if __name__ == '__main__':
     app.config["MONGO_URI"] = "mongodb+srv://root:os.getEnv(PASSWORD)@milestone4db-c4m84.mongodb.net/recipie_db?retryWrites=true"
 
 app.config["MONGO_URI"] = "mongodb+srv://root:Will0w2L11@milestone4db-c4m84.mongodb.net/recipie_db?retryWrites=true"
-
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 mongo = PyMongo(app)
 @app.route('/')
@@ -108,5 +108,38 @@ def results():
             
       
     return render_template('results.html',allerginList=allerginlist, results=results, c_page=currentpagenum, pc=pagecount, pages=pages, sr=sr, nh=10, maxresults=len(results))
+
+@app.route('/recipie')
+def recipie():
+    error = None
+    if request.args.get('id'):
+        record_id = request.args.get('id')
+        rec = mongo.db.recipies.find_one({"_id": ObjectId(record_id)})
+        return render_template('recipie.html', recipie=rec)
+
+    else:
+        error = 'No recipie found'
+        return render_template('index.html', error=error)
+
+@app.route('/addLike', methods=['GET','POST'])
+def addLike():
+    record_id = request.args.get('recordID')
+    recipies = mongo.db.recipies
+    
+    
+    recipies.update({'_id': ObjectId(record_id)}, {'$inc': {'likes': int(1)}})
+    
+    return "Successfully added like"
+
+@app.route('/addDislike', methods=['GET','POST'])
+def addDislike():
+    record_id = request.args.get('recordID')
+    recipies = mongo.db.recipies
+    
+    
+    recipies.update({'_id': ObjectId(record_id)}, {'$inc': {'dislikes': int(1)}})
+    
+    return "Successfully added dislike"
+      
 if __name__ == '__main__':
     app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')), debug=False)

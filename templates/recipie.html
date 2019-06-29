@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="content">
+    
+    <div id="main_content">
+        <h1>{{recipie['recipie_title']}}</h1>
+        <hr/>
+        <h2>Description</h2>
+            {% autoescape false %}
+                {{recipie['recipie_description']}}
+            {% endautoescape %}
+        <div class="twocol-split">
+            <div>
+                <h3>Recipie Ingredients</h3>
+                {% autoescape false %}
+                    {{recipie['recipie_ingredients']}}
+                {% endautoescape %}
+            </div>
+            <div>
+                <h3>Cooking Instructions</h3>
+                {% autoescape false %}
+                    {{recipie['recipie_instructions']}}
+                {% endautoescape %}
+            </div>
+        </div>
+    </div>
+    <div id="side_content">
+        <a id="like_button" class="btn btn-success" data-id="{{recipie['_id']}}"><i class="fas fa-thumbs-up"></i>Like ({% if recipie['likes'] is defined %} <span id="l_count">{{recipie['likes']}}</span> {% else %} <span id="l_count">0</span> {% endif %})</span></a>
+        <a id="dislike_button" class="btn btn-danger" data-id="{{recipie['_id']}}"><i class="fas fa-thumbs-down"></i>Dislike ({% if recipie['dislikes'] is defined %} <span id="d_count">{{recipie['dislikes']}}</span> {% else %} <span id="d_count">0</span> {% endif %})</a>
+    </div>
+</div>
+{% endblock %}
+{% block page_scripts %}
+<script type="text/javascript">
+$(document).ready(function(e){
+    $('#like_button').on('click', function(e){
+        e.preventDefault();
+        var recordId = $(this).data('id');
+        context = {
+         'recordID': recordId
+         
+       }
+       $.ajax({
+         url:'/addLike',
+         type: 'GET',
+         data: context,
+         success: function(data) {
+            var like_count = $('#l_count').text();
+                var parsed = parseInt(like_count)
+                var newcount = parsed + 1
+                $('#l_count').text(newcount)
+             },
+             error: function(request, status) {
+                 console.log("Error: ")
+            }
+       });
+    });
+    $('#dislike_button').on('click', function(e){
+        e.preventDefault();
+        var recordId = $(this).data('id');
+        context = {
+         'recordID': recordId
+         
+       }
+       $.ajax({
+         url:'/addDislike',
+         type: 'GET',
+         data: context,
+         success: function(data) {
+                var dislike_count = $('#d_count').text();
+                var parsed = parseInt(dislike_count)
+                var newcount = parsed + 1
+                $('#d_count').text(newcount)
+             },
+             error: function(request, status) {
+                 console.log("Error: ")
+            }
+       });
+    });
+});
+//         $.ajax({
+//             type:'GET',
+//             url:'/addLike',
+//             cache:false,
+//             async:'asynchronous',
+//             dataType:'json',
+//             data:{record_id : recordId},
+//             success: function(data) {
+//                 console.log(JSON.stringify(data))
+//             },
+//             error: function(request, status) {
+//                 console.log("Error: ")
+//             }
+//    });
+
+</script>
+{% endblock %}

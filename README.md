@@ -143,7 +143,31 @@ Once your virtual environment has been activated, enter `pip install -r requirem
 
 
 ### Heroku Deployment
+[AppOverview]: readme_images/heroku/app_overview.png
+[AppCreate]: readme_images/heroku/app_create.png
+[AppAutoDeploy]: readme_images/heroku/app_automatic_deploy.png
+[AppManualDeploy]: readme_images/heroku/app-manual-deployment.png
 ***
+1) If you already have an heroku account, please go to step 4 after signing in
+2) Go to [https://signup.heroku.com/](https://signup.heroku.com/)
+3) Fill out the registration form
+4) Once on the app overview (See below), click on 'New -> Create new app'
+![AppOverview]
+5) Enter an app-name and choose the region, then click on 'Create App'
+![AppCreate]
+6) Now choose the deployment method, there are 3 options
+    a) Heroku CLI (Command Line Interface)
+    b) GitHub Deployment
+    c) Container Registry (Docker)
+
+For option 'a', follow the instructions given, for 'b', you will be asked to link to a github account and for 'c', again follow the instructions given.
+
+For this project, I went with the github deployment for simplicity, as it only meant one push per deployment.
+
+Once linked, You can enable automatic deploys based off a branch
+![AppAutoDeploy]
+Or perform a manual deployment
+![AppManualDeploy]
 ### Style Changing
 ***
 

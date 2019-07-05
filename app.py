@@ -35,9 +35,9 @@ def form():
         record_id = request.args.get('id')
         enable_edit_mode = request.args.get('edit')
     else:
-        enable_edit_mode = true
+        enable_edit_mode = False
         record_id = ''
-
+    rec = None
     if enable_edit_mode:
         rec = mongo.db.recipies.find_one({"_id": ObjectId(record_id)})
         print(rec)
@@ -57,8 +57,7 @@ def submit():
     print (recipie_id)
     recipies = mongo.db.recipies
     if not recipie_id:
-        #Bypassing validation for the time being
-        recipies.insert_one(data, bypass_document_validation=True)
+        recipies.insert_one(data)
         return redirect('/results/')
     else:
         print("Else Statement")
@@ -72,6 +71,7 @@ def results():
     Results page
         @arg - page = The current page number
         @arg - sr = The start index for the results page, 20 means that it will start at index 20
+        @arg - qt = The query term
     '''
     #Check to see if any parameters are defined
     if request.args.get('page'):
@@ -83,14 +83,20 @@ def results():
         page = 0
         sr = 0
         currentpagenum = 0  
-
     results = []
-    filterOptions = []
-    recipies = mongo.db.recipies.find()
-    for r in recipies:
-        results.append(r)
+    if request.args.get('qt'):
+        query = request.args.get('qt')
+        print(query)
+        recipies = mongo.db.recipies.find( { "$text": { "$search": query } })
+        for r in recipies:
+            results.append(r)
+    else:
+        recipies = mongo.db.recipies.find()
+        for r in recipies:
+            results.append(r)
 
     #FilterList
+    filterOptions = []
     allerginlist = [ "Gluten", "Crustacean", "Eggs", "Fish", "Peanuts", "Soybeans", "Milk", "Nuts", "Celery", "Mustard", "Sesame", "Lupin", "Molluscs"]
     pagecount = 0
     #We set the number to 11, since it is 0 based indexing, otherwise it only shows 9 results

@@ -21,7 +21,7 @@
         </form>
     </div>
     <div class="result-hits">
-        <h2 class="text-center">Results {{sr}} to {% if nh > maxresults %} {{maxresults}} {% else %} {{nh}} {% endif %} of {{maxresults}}</h2>
+        <h2 class="text-center">Results {{sr + 1}} to {% if nh > maxresults %} {{maxresults}} {% else %} {{nh}} {% endif %} of {{maxresults}}</h2>
         {% for res in results  %}
             {% if res.length == 0 %}
                  NO RESULTS

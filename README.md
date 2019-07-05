@@ -147,6 +147,8 @@ Once your virtual environment has been activated, enter `pip install -r requirem
 [AppCreate]: readme_images/heroku/app_create.png
 [AppAutoDeploy]: readme_images/heroku/app_automatic_deploy.png
 [AppManualDeploy]: readme_images/heroku/app-manual-deployment.png
+[AppSettingsLink]: readme_images/heroku/app_Settings_link.png
+[AppConfigVars]: readme_images/heroku/app_config_var_button.png
 ***
 1) If you already have an heroku account, please go to step 4 after signing in
 2) Go to [https://signup.heroku.com/](https://signup.heroku.com/)
@@ -168,6 +170,24 @@ Once linked, You can enable automatic deploys based off a branch
 ![AppAutoDeploy]
 Or perform a manual deployment
 ![AppManualDeploy]
+
+
+In order for the app to run however, certain environment variables need to be set.
+
+From the application overview page, click on 'Settings'
+
+![AppSettingsLink]
+
+Then click on 'Reveal Config Vars'
+
+![AppConfigVars]
+
+You need to add the following 4 variables:
+-   IP -> This is the IP, set it to 0.0.0.0
+-   PORT -> Can be any value you want, I set it to 5000
+-   SECRET_KEY -> Random string
+-   PASSWORD -> Your MongoDB password for the user set up, not your password to login to Mongo Atlas
+
 ### Style Changing
 ***
 

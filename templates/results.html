@@ -3,20 +3,22 @@
     <div class="row">
     <div class="results-facets">
         <h2 class="text-center">Filter your results:</h2>
-        <form method="GET">
+        <form method="GET" action="{{url_for('results')}}">
             <div class="form-check">
                 <div class="facet">
                     <h3 data-toggle="collapse" data-target="#filter_allergin_body">Allergins&nbsp;<i class="fa fa-chevron-down"></i></h3>
                     <div id="filter_allergin_body" class="collapse">
-                    {% for allergin in allerginList %}
-                    <label>
-                        <input type="checkbox" name="allergin" value="{{allergin}}">
-                        {{allergin}}
-                    </label>
-                        <br/>
-                    {% endfor %}
+                        {% for allergin in allerginList %}
+                        <label>
+                            <input type="checkbox" name="allergin" value="{{allergin}}" {% if request.args.get('allergin') == allergin %} checked="checked" {% endif %}/>
+                            {{allergin}}
+                        </label>
+                            <br/>
+                        {% endfor %}
                     </div>
                 </div>
+                <input type="hidden" name="qt" value="{{currentQueryTerm}}"/>
+                <input class="btn btn-success" type="submit" value="Filter my Results"/>
             </div>
         </form>
     </div>

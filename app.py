@@ -73,6 +73,7 @@ def results():
         @arg - sr = The start index for the results page, 20 means that it will start at index 20
         @arg - qt = The query term
     '''
+    filterOptions = []
     #Check to see if any parameters are defined
     if request.args.get('page'):
         page = int(request.args.get('page'))
@@ -87,16 +88,35 @@ def results():
     if request.args.get('qt'):
         query = request.args.get('qt')
         print(query)
-        recipies = mongo.db.recipies.find( { "$text": { "$search": query } })
-        for r in recipies:
-            results.append(r)
+        #Check for allergin filter
+        if request.args.get('allergin'):
+            allergin = request.args.get('allergin')
+            filterOptions.append(allergin)
+            recipies = mongo.db.recipies.find({"$text": { "$search": query },"recipie_allergins": {"$nin" : [allergin] } })
+            for r in recipies:
+                results.append(r)
+        else:
+            if request.args.get('allergin').len > 1:
+                print ("More than one allergin selected")
+                selectedallergin = []
+                for a in request.args.get('allergin'):
+                    selectedallergin.append(a)
+                    filterOptions.append(a)
+                    recipies = mongo.db.recipies.find({"$text": { "$search": query },"recipie_allergins": {"$nin" : selectedallergin } })
+                    for r in recipies:
+                        results.append(r)
+            else:
+                recipies = mongo.db.recipies.find( { "$text": { "$search": query } })
+                for r in recipies:
+                    results.append(r)
     else:
+        query = ''
         recipies = mongo.db.recipies.find()
         for r in recipies:
             results.append(r)
 
     #FilterList
-    filterOptions = []
+    
     allerginlist = [ "Gluten", "Crustacean", "Eggs", "Fish", "Peanuts", "Soybeans", "Milk", "Nuts", "Celery", "Mustard", "Sesame", "Lupin", "Molluscs"]
     pagecount = 0
     #We set the number to 11, since it is 0 based indexing, otherwise it only shows 9 results
@@ -113,7 +133,7 @@ def results():
             pagecount = pages + 1
             
       
-    return render_template('results.html',allerginList=allerginlist, results=results, c_page=currentpagenum, pc=pagecount, pages=pages, sr=sr, nh=10, maxresults=len(results))
+    return render_template('results.html',currentQueryTerm=query,allerginList=allerginlist, selectedFilters=filterOptions, results=results, c_page=currentpagenum, pc=pagecount, pages=pages, sr=sr, nh=10, maxresults=len(results))
 
 @app.route('/recipie')
 def recipie():

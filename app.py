@@ -96,19 +96,20 @@ def results():
             for r in recipies:
                 results.append(r)
         else:
-            if request.args.get('allergin').len > 1:
-                print ("More than one allergin selected")
-                selectedallergin = []
-                for a in request.args.get('allergin'):
-                    selectedallergin.append(a)
-                    filterOptions.append(a)
-                    recipies = mongo.db.recipies.find({"$text": { "$search": query },"recipie_allergins": {"$nin" : selectedallergin } })
-                    for r in recipies:
-                        results.append(r)
-            else:
-                recipies = mongo.db.recipies.find( { "$text": { "$search": query } })
-                for r in recipies:
-                    results.append(r)
+            # Commented out for now, needs to be fixed
+            # if request.args.get('allergin').len > 1:
+            #     print ("More than one allergin selected")
+            #     selectedallergin = []
+            #     for a in request.args.get('allergin'):
+            #         selectedallergin.append(a)
+            #         filterOptions.append(a)
+            #         recipies = mongo.db.recipies.find({"$text": { "$search": query },"recipie_allergins": {"$nin" : selectedallergin } })
+            #         for r in recipies:
+            #             results.append(r)
+            # else:
+            recipies = mongo.db.recipies.find( { "$text": { "$search": query } })
+            for r in recipies:
+                results.append(r)
     else:
         query = ''
         recipies = mongo.db.recipies.find()

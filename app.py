@@ -74,6 +74,9 @@ def results():
         @arg - qt = The query term
     '''
     filterOptions = []
+    #Format is allergin => selected
+    allerginlist = {"Gluten":'0', "Crustacean": '0', "Eggs": '0', "Fish": '0', "Peanuts": '0', "Soybeans": '0', "Milk": '0', "Nuts": '0', "Celery": '0', "Mustard": '0', "Sesame": '0', "Lupin": '0', "Molluscs": '0'}
+    
     #Check to see if any parameters are defined
     if request.args.get('page'):
         page = int(request.args.get('page'))
@@ -87,26 +90,18 @@ def results():
     results = []
     if request.args.get('qt'):
         query = request.args.get('qt')
-        print(query)
+        varlist = []
         #Check for allergin filter
         if request.args.get('allergin'):
-            allergin = request.args.get('allergin')
-            filterOptions.append(allergin)
-            recipies = mongo.db.recipies.find({"$text": { "$search": query },"recipie_allergins": {"$nin" : [allergin] } })
+            allergin = request.args.getlist('allergin')
+            for aagin in allergin:
+                varlist.append(aagin)  
+                newallergin = {aagin : '1'}
+                allerginlist.update(newallergin)
+            recipies = mongo.db.recipies.find({"$text": { "$search": query },"recipie_allergins": {"$nin" : varlist } })
             for r in recipies:
                 results.append(r)
         else:
-            # Commented out for now, needs to be fixed
-            # if request.args.get('allergin').len > 1:
-            #     print ("More than one allergin selected")
-            #     selectedallergin = []
-            #     for a in request.args.get('allergin'):
-            #         selectedallergin.append(a)
-            #         filterOptions.append(a)
-            #         recipies = mongo.db.recipies.find({"$text": { "$search": query },"recipie_allergins": {"$nin" : selectedallergin } })
-            #         for r in recipies:
-            #             results.append(r)
-            # else:
             recipies = mongo.db.recipies.find( { "$text": { "$search": query } })
             for r in recipies:
                 results.append(r)
@@ -118,7 +113,6 @@ def results():
 
     #FilterList
     
-    allerginlist = [ "Gluten", "Crustacean", "Eggs", "Fish", "Peanuts", "Soybeans", "Milk", "Nuts", "Celery", "Mustard", "Sesame", "Lupin", "Molluscs"]
     pagecount = 0
     #We set the number to 11, since it is 0 based indexing, otherwise it only shows 9 results
     if len(results) < 11:

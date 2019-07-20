@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="row">
+<div class="row">
     <div class="results-facets">
         <h2 class="text-center">Filter your results:</h2>
         <form method="GET" action="{{url_for('results')}}">
@@ -8,10 +8,10 @@
                 <div class="facet">
                     <h3 data-toggle="collapse" data-target="#filter_allergin_body">Allergins&nbsp;<i class="fa fa-chevron-down"></i></h3>
                     <div id="filter_allergin_body" class="collapse">
-                        {% for allergin in allerginList %}
+                        {% for key, value in allerginList.items() %}
                         <label>
-                            <input type="checkbox" name="allergin" value="{{allergin}}" {% if request.args.get('allergin') == allergin %} checked="checked" {% endif %}/>
-                            {{allergin}}
+                            <input type="checkbox" name="allergin" value="{{key}}" {% if value == '1' %} checked="checked" {% endif %}/>
+                            {{key}}
                         </label>
                             <br/>
                         {% endfor %}
@@ -36,6 +36,11 @@
                         </main>
                         <footer>
                             <a href="{{url_for('recipie', id=res._id)}}" class="btn btn-info">View Full Information</a>
+                            <div class="pull-right"><strong>Allergins</strong>
+                            {% for a in res.recipie_allergins %}
+                                <span class="badge badge-pill badge-danger">{{a}}</span>
+                            {% endfor %}
+                        </div>
                         </footer>
                     </div>
                 {% endif %}
@@ -50,7 +55,6 @@
                 {% else %}
                 <li><a href="{{  url_for('results', page=pn + 1, sr=(pn * 10)) }}">{{pn}}</a></li>
                 {% endif %}
-            
             {% endfor %}
         </ul>
     {% endif %}

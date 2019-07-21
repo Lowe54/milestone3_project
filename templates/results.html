@@ -32,7 +32,9 @@
                     <div id="hit-{{res._id}}" class="result-hit">
                         <header><h4>{{res.recipie_title}}</h4></header>
                         <main>
-                            <p>{{res.recipie_description}}</p>
+                            {% autoescape false %}
+                                {{res.recipie_description}}
+                            {% endautoescape %}
                         </main>
                         <footer>
                             <a href="{{url_for('recipie', id=res._id)}}" class="btn btn-info">View Full Information</a>

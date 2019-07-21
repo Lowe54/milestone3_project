@@ -107,9 +107,22 @@ def results():
                 results.append(r)
     else:
         query = ''
-        recipies = mongo.db.recipies.find()
-        for r in recipies:
-            results.append(r)
+        varlist = []
+        #Check for allergin filter
+        if request.args.get('allergin'):
+            allergin = request.args.getlist('allergin')
+            for aagin in allergin:
+                varlist.append(aagin)  
+                newallergin = {aagin : '1'}
+                allerginlist.update(newallergin)
+            recipies = mongo.db.recipies.find({"recipie_allergins": {"$nin" : varlist }})
+            for r in recipies:
+                results.append(r)
+
+        else:
+            recipies = mongo.db.recipies.find()
+            for r in recipies:
+                results.append(r)
 
     #FilterList
     

@@ -1391,6 +1391,9 @@ h2 {
   max-width: 33.3333333333%; }
   #side_content a {
     color: white; }
+  #side_content .action-button {
+    flex: 0 0 100%;
+    max-width: 100%; }
 
 #main_content {
   flex: 0 0 66.6666666667%;

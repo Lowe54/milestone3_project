@@ -25,14 +25,32 @@
         </div>
     </div>
     <div id="side_content">
-        <a id="like_button" class="btn btn-success" data-id="{{recipie['_id']}}"><i class="fas fa-thumbs-up"></i>Like ({% if recipie['likes'] is defined %} <span id="l_count">{{recipie['likes']}}</span> {% else %} <span id="l_count">0</span> {% endif %})</span></a>
-        <a id="dislike_button" class="btn btn-danger" data-id="{{recipie['_id']}}"><i class="fas fa-thumbs-down"></i>Dislike ({% if recipie['dislikes'] is defined %} <span id="d_count">{{recipie['dislikes']}}</span> {% else %} <span id="d_count">0</span> {% endif %})</a>
+        <a id="like_button" class="btn btn-success action-button" data-id="{{recipie['_id']}}"><i class="fas fa-thumbs-up"></i>Like ({% if recipie['likes'] is defined %} <span id="l_count">{{recipie['likes']}}</span> {% else %} <span id="l_count">0</span> {% endif %})</span></a>
+        <a id="dislike_button" class="btn btn-danger action-button" data-id="{{recipie['_id']}}"><i class="fas fa-thumbs-down"></i>Dislike ({% if recipie['dislikes'] is defined %} <span id="d_count">{{recipie['dislikes']}}</span> {% else %} <span id="d_count">0</span> {% endif %})</a>
+        <a class="btn btn-info action-button" href="{{url_for('form', id=recipie['_id'], edit=1)}}" title="Edit {{recipie[recipie_title]}}">Edit this recipie</a>
     </div>
 </div>
 {% endblock %}
 {% block page_scripts %}
 <script type="text/javascript">
 $(document).ready(function(e){
+    var l_width = getlargestwidth('.action-button');
+    $('.action-button').each(function(){
+        if (l_width > $(this).width()){
+            $(this).css('width', l_width);
+        }
+    })
+
+    function getlargestwidth(selector){
+        var c_width = 0
+        $(selector).each(function(index){
+            if($(this).outerWidth() > c_width){
+                c_width = $(this).outerWidth()
+            }
+        });
+        return c_width;
+        }
+
     $('#like_button').on('click', function(e){
         e.preventDefault();
         var recordId = $(this).data('id');

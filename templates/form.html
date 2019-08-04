@@ -44,7 +44,14 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    {% set c_date  = recipie['createdDate'] %}
+                    {% if c_date == null  %}
+                        <input type="hidden" name="createdDate" value="{{date}}"/>
+                    {% else %}
+                        <input type="hidden" name="createdDate" value="{{recipie['createdDate']}}"/>
+                    {% endif %}
                     {% if edit == '1' %}
+                        <input type="hidden" name="updated_date" value="{{date}}"/>
                         <input type="hidden" name="recipie_id" value="{{recipie['_id']}}"/>
                     {% endif %}
                     <button class="btn btn-success">Submit</button>

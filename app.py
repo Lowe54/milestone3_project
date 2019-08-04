@@ -4,6 +4,7 @@ from flask_pymongo import PyMongo
 from flask import Flask, render_template,request,redirect,url_for
 from bson.objectid import ObjectId
 import json
+import datetime
 
 app = Flask(__name__)
 
@@ -41,9 +42,9 @@ def form():
     if enable_edit_mode:
         rec = mongo.db.recipies.find_one({"_id": ObjectId(record_id)})
         print(rec)
-        
+    todaydate = datetime.datetime.now()
     allerginlist = [ "Gluten", "Crustacean", "Eggs", "Fish", "Peanuts", "Soybeans", "Milk", "Nuts", "Celery", "Mustard", "Sesame", "Lupin", "Molluscs"]
-    return render_template('form.html', edit=enable_edit_mode, id=record_id, allerginlist=allerginlist,recipie=rec)
+    return render_template('form.html', edit=enable_edit_mode, id=record_id, allerginlist=allerginlist,recipie=rec, date=todaydate)
 
 @app.route('/submit', methods=["POST", "GET"])
 def submit():
@@ -53,7 +54,9 @@ def submit():
     ingredients = request.form.get('recipie_ingredients')
     allergins = request.form.getlist('recipie_allergins')
     recipie_id = request.form.get('recipie_id')
-    data = {"recipie_title": title, "recipie_description": description, "recipie_instructions":instructions, "recipie_ingredients": ingredients,"recipie_allergins": allergins}
+    createdDate = request.form.get('createdDate')
+    updatedDate = request.form.get('updated_date')
+    data = {"recipie_title": title, "recipie_description": description, "recipie_instructions":instructions, "recipie_ingredients": ingredients,"recipie_allergins": allergins, "createdDate":createdDate, "updatedDate": updatedDate}
     print (recipie_id)
     recipies = mongo.db.recipies
     if not recipie_id:
@@ -145,11 +148,21 @@ def results():
 
 @app.route('/recipie')
 def recipie():
+
+    def convertDate(field):
+            year = field[0:4]
+            month = field[5:7]
+            day = field[8:10]
+            date = day + "/" + month + "/" + year
+            return date
     error = None
     if request.args.get('id'):
         record_id = request.args.get('id')
         rec = mongo.db.recipies.find_one({"_id": ObjectId(record_id)})
-        return render_template('recipie.html', recipie=rec)
+        c_date = convertDate(rec['createdDate'])
+        u_date = convertDate(rec['updatedDate'])
+        return render_template('recipie.html', recipie=rec, createdDate=c_date, updatedDate=u_date )
+        
 
     else:
         error = 'No recipie found'

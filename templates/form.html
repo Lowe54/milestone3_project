@@ -35,13 +35,30 @@
                     <label class="label" for="recipie_allergins">Does this recipie contain any of the following allergins (Tick all that apply)</label>
                     <div class="control">
                     {% for allergin in allerginlist %}
+                   
                     <label class="checkbox">
-                        <input type="checkbox" name="recipie_allergins" class="form-check form-check-inline" value="{{allergin}}">
+                    <input type="checkbox" name="recipie_allergins" class="form-check form-check-inline"
+                    {% for v in recipie['recipie_allergins'] %}
+                        {% if v == allergin %} checked="checked" {% endif %} 
+                    {% endfor %}
+                    value="{{allergin}}"/>  
                         {{allergin}}
                     </label>
                      <br/>
                     {% endfor %}
+                    
+                    
                     </div>
+                </div>
+                <div class="select-group">
+                    <label class="label" for="recipie_difficulty">How difficult is this recipie?</label>
+                    {% set diff = recipie['recipie_difficulty'] %}
+                    <select name="recipie_difficulty" id="recipie_difficulty">
+                        <option value=''>Please Select..</option>
+                        <option value="Easy" {% if diff == 'Easy' %} selected="selected" {% endif %}>Easy</option>
+                        <option value="Medium" {% if diff == 'Medium' %} selected="selected" {% endif %}>Medium</option>
+                        <option value="Hard" {% if diff == 'Hard' %} selected="selected" {% endif %}>Hard</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     {% set c_date  = recipie['createdDate'] %}
@@ -53,6 +70,17 @@
                     {% if edit == '1' %}
                         <input type="hidden" name="updated_date" value="{{date}}"/>
                         <input type="hidden" name="recipie_id" value="{{recipie['_id']}}"/>
+                        {% if recipie['likes'] != 'None' %}
+                        <input type="hidden" name="likes" value="{{recipie['likes']}}"/>
+                        {% else %}
+                        <input type="hidden" name="likes" value="0"/>
+                        {% endif %}
+                        {% if recipie['dislikes'] != 'None' %}
+                        <input type="hidden" name="dislikes" value="{{recipie['dislikes']}}"/>
+                        {% else %}
+                        <input type="hidden" name="dislikes" value="0"/>
+                        {% endif %}
+                        
                     {% endif %}
                     <button class="btn btn-success">Submit</button>
                     <button class="btn btn-danger">Cancel</button>

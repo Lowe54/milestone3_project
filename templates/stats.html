@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div id="chart"></div>
+
+{% endblock %}
+{% block page_scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter2/1.4.6/crossfilter.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
+<script src="{{url_for('static', filename='js/scripts/graphs.js')}}"></script>
+{% endblock %}

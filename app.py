@@ -1,6 +1,6 @@
 import os
 import pymongo
-from flask_pymongo import PyMongo
+from flask_pymongo import PyMongo, MongoClient
 from flask import Flask, render_template,request,redirect,url_for
 from bson.objectid import ObjectId
 import json
@@ -56,7 +56,10 @@ def submit():
     recipie_id = request.form.get('recipie_id')
     createdDate = request.form.get('createdDate')
     updatedDate = request.form.get('updated_date')
-    data = {"recipie_title": title, "recipie_description": description, "recipie_instructions":instructions, "recipie_ingredients": ingredients,"recipie_allergins": allergins, "createdDate":createdDate, "updatedDate": updatedDate}
+    likes = request.form.get('likes')
+    dislikes = request.form.get('dislikes')
+    difficulty = request.form.get('recipie_difficulty')
+    data = {"recipie_title": title, "recipie_description": description, "recipie_instructions":instructions, "recipie_ingredients": ingredients,"recipie_allergins": allergins, "createdDate":createdDate, "updatedDate": updatedDate, "recipie_difficulty": difficulty, "likes": likes, "dislikes": dislikes}
     print (recipie_id)
     recipies = mongo.db.recipies
     if not recipie_id:
@@ -187,6 +190,28 @@ def addDislike():
     recipies.update({'_id': ObjectId(record_id)}, {'$inc': {'dislikes': int(1)}})
     
     return "Successfully added dislike"
-      
+
+@app.route('/stats')
+def stats():
+    client = MongoClient()
+  
+    collection = mongo.db.recipies
+    cursor = collection.find({},{"_id" : 0})
+    file = open("collection.json", "w")
+    file.write('[')
+
+    qnt_cursor = 0
+    for document in cursor:
+        qnt_cursor += 1
+        num_max = cursor.count()
+        if (num_max == 1):
+            file.write(json.dumps(document))
+        elif (num_max >= 1 and qnt_cursor <= num_max-1):
+            file.write(json.dumps(document))
+            file.write(',')
+        elif (qnt_cursor == num_max):
+            file.write(json.dumps(document))
+    file.write(']')
+    return render_template('stats.html')
 if __name__ == '__main__':
     app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')), debug=False)

@@ -68,12 +68,12 @@
                     {% if edit == '1' %}
                         <input type="hidden" name="updated_date" value="{{date}}"/>
                         <input type="hidden" name="recipie_id" value="{{recipie['_id']}}"/>
-                        {% if recipie['likes'] != 'None' %}
+                        {% if recipie['likes'] %}
                         <input type="hidden" name="likes" value="{{recipie['likes']}}"/>
                         {% else %}
                         <input type="hidden" name="likes" value="0"/>
                         {% endif %}
-                        {% if recipie['dislikes'] != 'None' %}
+                        {% if recipie['dislikes'] %}
                         <input type="hidden" name="dislikes" value="{{recipie['dislikes']}}"/>
                         {% else %}
                         <input type="hidden" name="dislikes" value="0"/>

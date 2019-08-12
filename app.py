@@ -55,8 +55,10 @@ def submit():
     recipie_id = request.form.get('recipie_id')
     createdDate = request.form.get('createdDate')
     updatedDate = request.form.get('updated_date')
-    likes = request.form.get('likes')
-    dislikes = request.form.get('dislikes')
+    likes = int(request.form.get('likes', 0))
+    print(type(likes))
+    dislikes = int(request.form.get('dislikes', 0))
+    print(type(dislikes))
     difficulty = request.form.get('recipie_difficulty')
     data = {"recipie_title": title, "recipie_description": description, "recipie_instructions":instructions, "recipie_ingredients": ingredients,"recipie_allergins": allergins, "createdDate":createdDate, "updatedDate": updatedDate, "recipie_difficulty": difficulty, "likes": likes, "dislikes": dislikes}
     recipies = mongo.db.recipies
@@ -159,7 +161,11 @@ def recipie():
         record_id = request.args.get('id')
         rec = mongo.db.recipies.find_one({"_id": ObjectId(record_id)})
         c_date = convertDate(rec['createdDate'])
-        u_date = convertDate(rec['updatedDate'])
+        if None != rec['updatedDate']:
+            u_date = convertDate(rec['updatedDate'])
+        else:
+            u_date = None
+
         return render_template('recipie.html', recipie=rec, createdDate=c_date, updatedDate=u_date )
         
 

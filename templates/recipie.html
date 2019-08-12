@@ -23,7 +23,9 @@
                 {% endautoescape %}
             </div>
             <small>Created On {{createdDate}}</small></br>
+            {% if updatedDate != None %}
             <small>Last Updated On {{updatedDate}}</small>
+            {% endif %}
         </div>
     </div>
     <div id="side_content">

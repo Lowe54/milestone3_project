@@ -41,7 +41,6 @@ def form():
     rec = None
     if enable_edit_mode:
         rec = mongo.db.recipies.find_one({"_id": ObjectId(record_id)})
-        print(rec)
     todaydate = datetime.datetime.now()
     allerginlist = [ "Gluten", "Crustacean", "Eggs", "Fish", "Peanuts", "Soybeans", "Milk", "Nuts", "Celery", "Mustard", "Sesame", "Lupin", "Molluscs"]
     return render_template('form.html', edit=enable_edit_mode, id=record_id, allerginlist=allerginlist,recipie=rec, date=todaydate)
@@ -60,7 +59,6 @@ def submit():
     dislikes = request.form.get('dislikes')
     difficulty = request.form.get('recipie_difficulty')
     data = {"recipie_title": title, "recipie_description": description, "recipie_instructions":instructions, "recipie_ingredients": ingredients,"recipie_allergins": allergins, "createdDate":createdDate, "updatedDate": updatedDate, "recipie_difficulty": difficulty, "likes": likes, "dislikes": dislikes}
-    print (recipie_id)
     recipies = mongo.db.recipies
     if not recipie_id:
         recipies.insert_one(data)
@@ -130,12 +128,10 @@ def results():
             for r in recipies:
                 results.append(r)
 
-    #FilterList
-    
+       
     pagecount = 0
     #We set the number to 11, since it is 0 based indexing, otherwise it only shows 9 results
     if len(results) < 11:
-        print("No need for extra pages here")
         pages = 0
     else:
         #Determine the number of result pages

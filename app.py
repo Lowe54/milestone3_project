@@ -22,6 +22,7 @@ mongo = PyMongo(app)
 def index():
     '''
     Function that defines the index page
+    @arg error = Any error messages (no record etc..)
     '''
     title = "Welcome to the RecipieDB"
     recs = mongo.db.recipies.find().sort('likes', pymongo.DESCENDING)
@@ -31,6 +32,7 @@ def index():
 @app.route('/form')
 def form():
     '''
+    This page allows for the addition and editing of recipies
     @arg - edit =  Determines if the page loads current record information
     @arg - id = Only used in edit mode, it is used to grab the record data
     '''
@@ -53,6 +55,11 @@ def form():
 
 @app.route('/submit', methods=["POST", "GET"])
 def submit():
+    '''
+    Submission page
+    This handles the information passed through from the form
+
+    '''
     title = request.form.get('recipie_title')
     description = request.form.get('recipie_description')
     instructions = request.form.get('recipie_instructions')
@@ -62,9 +69,7 @@ def submit():
     createdDate = request.form.get('createdDate')
     updatedDate = request.form.get('updated_date')
     likes = int(request.form.get('likes', 0))
-    print(type(likes))
     dislikes = int(request.form.get('dislikes', 0))
-    print(type(dislikes))
     difficulty = request.form.get('recipie_difficulty')
     data = {"recipie_title": title, "recipie_description": description, "recipie_instructions":instructions, "recipie_ingredients": ingredients,"recipie_allergins": allergins, "createdDate":createdDate, "updatedDate": updatedDate, "recipie_difficulty": difficulty, "likes": likes, "dislikes": dislikes}
     recipies = mongo.db.recipies
@@ -84,6 +89,7 @@ def results():
         @arg - page = The current page number
         @arg - sr = The start index for the results page, 20 means that it will start at index 20
         @arg - qt = The query term
+        @arg - allergin = The selected allergins from the filter to be excluded
     '''
     title = "Results | RecipieDB"
     filterOptions = []
@@ -156,8 +162,14 @@ def results():
 
 @app.route('/recipie')
 def recipie():
-    
+    '''
+   Recipie page
+        @arg - id = The ID of the recipie to be displayed
+    '''
     def convertDate(field):
+        '''
+        This function takes a full datetime string and returns the date part ONLY
+        '''
             year = field[0:4]
             month = field[5:7]
             day = field[8:10]
@@ -183,6 +195,10 @@ def recipie():
 
 @app.route('/addLike', methods=['GET','POST'])
 def addLike():
+    '''
+    Add Like Script (Called via AJAX)
+    @arg - recordID = The record Id to add a like to
+    '''
     record_id = request.args.get('recordID')
     recipies = mongo.db.recipies
     
@@ -193,6 +209,10 @@ def addLike():
 
 @app.route('/addDislike', methods=['GET','POST'])
 def addDislike():
+    '''
+    Add Dislike Script (Called via AJAX)
+    @arg - recordID = The record Id to add a like to
+    '''
     record_id = request.args.get('recordID')
     recipies = mongo.db.recipies
     
@@ -203,6 +223,13 @@ def addDislike():
 
 @app.route('/stats')
 def stats():
+    '''
+    Statistics page
+    
+    This page initially writes to a json file the entire collection, it then calls the actual page to be rendered.
+
+    The ObjectID is excluded from this json file.
+    '''
     title = "Statistics | RecipieDB"
     client = MongoClient()
   

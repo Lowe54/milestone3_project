@@ -23,8 +23,10 @@ def index():
     '''
     Function that defines the index page
     '''
-    title = "The index page"
-    return render_template('index.html', title=title)
+    title = "Welcome to the RecipieDB"
+    recs = mongo.db.recipies.find().sort('likes', pymongo.DESCENDING)
+    
+    return render_template('index.html', title=title, recs=recs)
 
 @app.route('/form')
 def form():
@@ -32,6 +34,7 @@ def form():
     @arg - edit =  Determines if the page loads current record information
     @arg - id = Only used in edit mode, it is used to grab the record data
     '''
+    
     if request.args.get('edit') and request.args.get('id'):
         record_id = request.args.get('id')
         enable_edit_mode = request.args.get('edit')
@@ -40,10 +43,13 @@ def form():
         record_id = ''
     rec = None
     if enable_edit_mode:
+        title = "Edit a recipie|RecipieDB"
         rec = mongo.db.recipies.find_one({"_id": ObjectId(record_id)})
+    else:
+        title = "Add a recipie|RecipieDB"
     todaydate = datetime.datetime.now()
     allerginlist = [ "Gluten", "Crustacean", "Eggs", "Fish", "Peanuts", "Soybeans", "Milk", "Nuts", "Celery", "Mustard", "Sesame", "Lupin", "Molluscs"]
-    return render_template('form.html', edit=enable_edit_mode, id=record_id, allerginlist=allerginlist,recipie=rec, date=todaydate)
+    return render_template('form.html', title=title, edit=enable_edit_mode, id=record_id, allerginlist=allerginlist,recipie=rec, date=todaydate)
 
 @app.route('/submit', methods=["POST", "GET"])
 def submit():
@@ -79,6 +85,7 @@ def results():
         @arg - sr = The start index for the results page, 20 means that it will start at index 20
         @arg - qt = The query term
     '''
+    title = "Results | RecipieDB"
     filterOptions = []
     #Format is allergin => selected
     allerginlist = {"Gluten":'0', "Crustacean": '0', "Eggs": '0', "Fish": '0', "Peanuts": '0', "Soybeans": '0', "Milk": '0', "Nuts": '0', "Celery": '0', "Mustard": '0', "Sesame": '0', "Lupin": '0', "Molluscs": '0'}
@@ -145,11 +152,11 @@ def results():
             pagecount = pages + 1
             
       
-    return render_template('results.html',currentQueryTerm=query,allerginList=allerginlist, selectedFilters=filterOptions, results=results, c_page=currentpagenum, pc=pagecount, pages=pages, sr=sr, nh=10, maxresults=len(results))
+    return render_template('results.html',title=title,currentQueryTerm=query,allerginList=allerginlist, selectedFilters=filterOptions, results=results, c_page=currentpagenum, pc=pagecount, pages=pages, sr=sr, nh=10, maxresults=len(results))
 
 @app.route('/recipie')
 def recipie():
-
+    
     def convertDate(field):
             year = field[0:4]
             month = field[5:7]
@@ -160,13 +167,14 @@ def recipie():
     if request.args.get('id'):
         record_id = request.args.get('id')
         rec = mongo.db.recipies.find_one({"_id": ObjectId(record_id)})
+        title = rec['recipie_title'] + " | RecipieDB"
         c_date = convertDate(rec['createdDate'])
         if None != rec['updatedDate']:
             u_date = convertDate(rec['updatedDate'])
         else:
             u_date = None
 
-        return render_template('recipie.html', recipie=rec, createdDate=c_date, updatedDate=u_date )
+        return render_template('recipie.html', title=title, recipie=rec, createdDate=c_date, updatedDate=u_date )
         
 
     else:
@@ -195,11 +203,12 @@ def addDislike():
 
 @app.route('/stats')
 def stats():
+    title = "Statistics | RecipieDB"
     client = MongoClient()
   
     collection = mongo.db.recipies
     cursor = collection.find({},{"_id" : 0})
-    file = open("collection.json", "w")
+    file = open("static/data/collection.json", "w")
     file.write('[')
 
     qnt_cursor = 0
@@ -214,6 +223,7 @@ def stats():
         elif (qnt_cursor == num_max):
             file.write(json.dumps(document))
     file.write(']')
-    return render_template('stats.html')
+    file.close()
+    return render_template('stats.html', title=title)
 if __name__ == '__main__':
     app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')), debug=False)

@@ -1356,6 +1356,20 @@ html {
 
   .align-self-xl-stretch {
     align-self: stretch !important; } }
+#card-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+  display: inline-flex; }
+
+.card-wrapper {
+  flex: 0 0 50%;
+  max-width: 50%; }
+@media(max-width: 760px) {
+  .card-wrapper {
+    flex: 0 0 100%;
+    max-width: 100%; } }
 .result-hits {
   flex: 0 0 79.1666666667%;
   max-width: 79.1666666667%; }

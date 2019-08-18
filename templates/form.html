@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block title %}
+<title>{{title}}</title>
+{% endblock %}
 {% block pageSpecificStyles %}
     <link rel="stylesheet" href="{{url_for('static', filename='css/vendor/jquery-te-1.4.0.css')}}"/>
     <link rel="stylesheet" href="{{url_for('static', filename='css/jqte_overrides.css')}}"/>

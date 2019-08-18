@@ -15,5 +15,22 @@
   {% endif %}
 {% endwith %}
     <h1>{{title}}</h1>
-    
+    <h2>Our most liked recipies</h2>
+    <div class="row">
+    {% for r in recs %}
+    <div class="card-wrapper">
+      <div class="card">
+        <div class="card-body">
+          {{r.recipie_title}}
+          <br/>
+          {{r.likes}} Likes
+          <br/>
+          <a href="{{url_for('recipie', id=r._id)}}" class="btn btn-info">View Recipie</a>
+                              
+        </div>
+      </div>
+    </div>
+      
+    {% endfor %}
+  </div>
 {% endblock %}

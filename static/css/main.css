@@ -1422,7 +1422,7 @@ html {
     text-align: center;
     background-color: #808080;
     margin-bottom: 0; }
-    .results-facets h3:first {
+    .results-facets h3:first-of-type {
       border-top-left-radius: 10px;
       border-top-right-radius: 10px; }
   .results-facets .facet div {

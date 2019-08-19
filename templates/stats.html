@@ -3,8 +3,21 @@
 <title>{{title}}</title>
 {% endblock %}
 {% block content %}
-
-<div id="chart"></div>
+<main>
+<h1>Statistics</h1>
+<button class="btn btn-danger" onClick="resetchart()">RESET</button>
+<section>
+    <h2>Number of recipies per difficulty</h2>
+    <div id="difficultychart">
+       
+    </div>
+</section>
+<section>
+    <h2>Number of recipies per mealtype</h2>
+    <div id="mealtypechart"></div>
+</section>    
+<button class="btn btn-danger" onClick="resetchart()">RESET</button>
+</main>
 
 {% endblock %}
 {% block page_scripts %}

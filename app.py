@@ -5,6 +5,7 @@ from flask import Flask, render_template,request,redirect,url_for
 from bson.objectid import ObjectId
 import json
 import datetime
+from testFramework import *
 
 app = Flask(__name__)
 
@@ -59,6 +60,7 @@ def submit():
     Submission page
     This handles the information passed through from the form
 
+    This contains automated testing to check the types of field are correct
     '''
     title = request.form.get('recipie_title')
     description = request.form.get('recipie_description')
@@ -71,13 +73,59 @@ def submit():
     likes = int(request.form.get('likes', 0))
     dislikes = int(request.form.get('dislikes', 0))
     difficulty = request.form.get('recipie_difficulty')
-    data = {"recipie_title": title, "recipie_description": description, "recipie_instructions":instructions, "recipie_ingredients": ingredients,"recipie_allergins": allergins, "createdDate":createdDate, "updatedDate": updatedDate, "recipie_difficulty": difficulty, "likes": likes, "dislikes": dislikes}
+    mealtype = request.form.get('recipie_mealtype')
+
+    # custom print to file for the tests
+    def printtest(label,field,expectedtype):
+        file.write("Expecting type of {0}, for field {1}".format(expectedtype,label) + '\n')
+        file.write(str(isinstance(field,expectedtype)) + "\n")
+        file.write("Test Passed \n")
+        file.write("********* \n")
+    # Automated Test - writes to testresults.txt
+    file = open("testresults.txt", "w")
+    file.write("*****Testing submission for " + title + "************\n")
+    
+    #Test followed by the print function
+    is_expected_type('recipie_title', title, str)
+    printtest('recipie_title', title, str)
+    
+    is_expected_type('recipie_description',description, str)
+    printtest('recipie_description',description, str)
+
+    is_expected_type('recipie_ingredients',ingredients, str)
+    printtest('recipie_ingredients',ingredients, str)
+
+    is_expected_type('recipie_allergins',allergins, list)
+    printtest('recipie_allergins',allergins, list)
+
+    #While the type is a bson.ObjectID, it passes it through as a string value, hence checking for a str
+    is_expected_type('ObjectId',recipie_id, str)
+    printtest('ObjectId',recipie_id, str)
+    #Dates do not have their own type in python, therefore we check for a string, which the datetime library will convert for us
+    is_expected_type('Created Date',createdDate, str)
+    printtest('Created Date',createdDate, str)
+
+    is_expected_type('Updated Date',updatedDate, str)
+    printtest('Updated Date',updatedDate, str)
+
+    is_expected_type('Likes',likes, int)
+    printtest('Likes',likes, int)
+
+    is_expected_type('Dislikes',dislikes,int)
+    printtest('Dislikes',dislikes,int)
+
+    is_expected_type('recipie_difficulty',difficulty, str)
+    printtest('recipie_difficulty',difficulty, str)
+    
+    is_expected_type('recipie_mealtype', mealtype, str)
+    printtest('recipie_mealtype',mealtype, str)
+    file.close()
+    data = {"recipie_title": title, "recipie_description": description, "recipie_instructions":instructions, "recipie_ingredients": ingredients,"recipie_allergins": allergins, "createdDate":createdDate, "updatedDate": updatedDate, "recipie_difficulty": difficulty, "likes": likes, "dislikes": dislikes, "recipie_mealtype": mealtype}
     recipies = mongo.db.recipies
     if not recipie_id:
         recipies.insert_one(data)
         return redirect('/results/')
     else:
-        print("Else Statement")
         recipies.update({"_id": ObjectId(recipie_id)}, data)
         return redirect('/results/')
 
@@ -170,11 +218,12 @@ def recipie():
         '''
         This function takes a full datetime string and returns the date part ONLY
         '''
-            year = field[0:4]
-            month = field[5:7]
-            day = field[8:10]
-            date = day + "/" + month + "/" + year
-            return date
+        year = field[0:4]
+        month = field[5:7]
+        day = field[8:10]
+        date = day + "/" + month + "/" + year
+        
+        return date
     error = None
     if request.args.get('id'):
         record_id = request.args.get('id')

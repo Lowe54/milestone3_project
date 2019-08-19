@@ -1,4 +1,4 @@
-*****Testing submission for Fish & Chips************
+*****Testing submission for Test Recipe************
 Expecting type of <class 'str'>, for field recipie_title
 True
 Test Passed 
@@ -36,6 +36,10 @@ True
 Test Passed 
 ********* 
 Expecting type of <class 'str'>, for field recipie_difficulty
+True
+Test Passed 
+********* 
+Expecting type of <class 'str'>, for field recipie_mealtype
 True
 Test Passed 
 ********* 

@@ -82,7 +82,7 @@ def submit():
         file.write("Test Passed \n")
         file.write("********* \n")
     # Automated Test - writes to testresults.txt
-    file = open("testresults.txt", "w")
+    file = open("testresults.txt", "a")
     file.write("*****Testing submission for " + title + "************\n")
     
     #Test followed by the print function

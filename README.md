@@ -45,16 +45,45 @@ The table below shows the various validators used and there results
 
 | Language being tested  	| Validator Used                       	| Result 	| Notes                                                                                   	|
 |------------------------	|--------------------------------------	|--------	|-----------------------------------------------------------------------------------------	|
-| HTML                   	| https://validator.w3.org/            	| PASS   	| https://validator.w3.org/nu/?doc=https%3A%2F%2Flowe54.github.io%2Fmilestone2_project%2F 	|
-| CSS                    	| https://jigsaw.w3.org/css-validator/ 	| PASS   	| |
+| HTML                   	| https://validator.w3.org/            	|    	|  	|
+| CSS                    	| https://jigsaw.w3.org/css-validator/ 	|    	| |
 
 ### Automated Testing
 
+Automated testing is in place for the form submission page. It checks to see if the expected type is what the current type is. i.e is the recipie_title a string?
+
+It updates the testresults.txt file each time a record is added or updated with the test results.
+
+[Test Results txt file](/testresults.txt)
 
 ### Manual Testing
 
 
 ### How it Displays
+
+#### Desktop
+
+##### Home
+
+##### Results
+
+##### Recipie add/edit form
+
+##### Recipie View
+
+##### Statistics
+
+#### Mobile
+
+##### Home
+
+##### Results
+
+##### Recipie add/edit form
+
+##### Recipie View
+
+##### Statistics
 
 ## Deployment
 
@@ -191,7 +220,7 @@ You need to add the following 4 variables:
 ### Style Changing
 ***
 
-The styles of this site are in SASS (.scss) format, in order to change the styles you will need to enter the following command into a terminal.
+The styles of this site are in SASS (.scss/.sass) format, in order to change the styles you will need to enter the following command into a terminal.
 
 If you get an `command not recognised` error, please follow the steps [here](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#using_sass)
 

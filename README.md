@@ -19,10 +19,10 @@
 
 -   Schema Validation of Allergins field
     -   This was initially included, however due to time constraints and fustration I removed it in order to get the application as a whole working, otherwise each time a record was added or updated, it threw a 'Document failed Validation' error.
+-   More graphs on the statstics page
+    - Considering the fact that a created date and updated date is stored within the database and written to the 'collection.json' file, there is ample scope to add a created per month graph.
 
 ## Technologies Used
-
-In this section, you should mention all of the languages, frameworks, libraries, and any other tools that you have used to construct this project. For each, provide its name, a link to its official site and a short sentence of why it was used.
 
 - [HTML5](https://www.w3.org/standards/webdesign/htmlcss)
     - **HTML5** is the basic building language of all websites, it allows for structure 
@@ -36,18 +36,33 @@ In this section, you should mention all of the languages, frameworks, libraries,
     - **SASS** was used to add extra functionality to CSS, it allows for nested statements to be used, which in turn made the files easier to read.
 - [JQuery TE](http://jqueryte.com/)
     - A lightweight jquery text editor used to enable WYSIWYG (What you see is what you get) functionality on the recipie form
+- [d3.js](https://d3js.org/) and [dc.js](https://dc-js.github.io/dc.js/docs/html/index.html)
+    - Used to implement the graphs in the [statistics page](https://lowe541-milestone3-project.herokuapp.com/stats)
 
 ## Testing
 
 ### Code Validation
 
 The table below shows the various validators used and there results
+| Language being tested | Validator Used                       | Result          | Notes                                                                                                                                                               | Link to validation result                                                                                                                                                                                            |
+|-----------------------|--------------------------------------|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| HTML                  | https://validator.w3.org/            | See table below | All main pages tested (See link table below)                                                                                                                        |                                                                                                                                                                                                                      |
+| CSS                   | https://jigsaw.w3.org/css-validator/ | PASS            | Not all of main.css was tested, see [tested_css.txt](Tested CSS .txt) for the code that was tested. This is due to it incorperating part of bootstrap's grid files  | Link to validator - https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Flowe541-milestone3-project.herokuapp.com%2Fstatic%2Fcss%2Fmain.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en |
+| Javascript            | https://jshint.com/                  | PASS            | See screenshot below for annotations etc..                                                                                                                          |                                                                                                                                                                                                                      |
+#### HTML Validation Results
 
-| Language being tested  	| Validator Used                       	| Result 	| Notes                                                                                   	|
-|------------------------	|--------------------------------------	|--------	|-----------------------------------------------------------------------------------------	|
-| HTML                   	| https://validator.w3.org/            	|    	|  	|
-| CSS                    	| https://jigsaw.w3.org/css-validator/ 	|    	| |
+| Page Name    | Site Link                                                                                | Validation Result | Validation Link                                                                                                                   |
+|--------------|------------------------------------------------------------------------------------------|-------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| Home         | https://lowe541-milestone3-project.herokuapp.com                                         | PASS              | https://validator.w3.org/nu/?doc=https%3A%2F%2Flowe541-milestone3-project.herokuapp.com                                           |
+| Results      | https://lowe541-milestone3-project.herokuapp.com/results/?qt=                            | PASS              | https://validator.w3.org/nu/?doc=https%3A%2F%2Flowe541-milestone3-project.herokuapp.com%2Fresults%2F%3Fqt%3D                      |
+| Recipie View | https://lowe541-milestone3-project.herokuapp.com/recipie?id=5d347f824a83d5055757582d     | PASS              | https://validator.w3.org/nu/?doc=https%3A%2F%2Flowe541-milestone3-project.herokuapp.com%2Frecipie%3Fid%3D5d0ea50beb1c1f61c1fea203 |
+| Recipie form | https://lowe541-milestone3-project.herokuapp.com/form?id=5d347f824a83d5055757582d&edit=1 | PASS              | https://validator.w3.org/nu/?doc=https%3A%2F%2Flowe541-milestone3-project.herokuapp.com%2Fform                                    |
+| Statistics   | https://lowe541-milestone3-project.herokuapp.com/stats                                   | PASS              | https://validator.w3.org/nu/?doc=https%3A%2F%2Flowe541-milestone3-project.herokuapp.com%2Fstats                                   |
 
+#### JsLint Result
+[JSLint_Results]: readme_images/testing/JSLINT_Results.png
+
+![JSLint_Results]
 ### Automated Testing
 
 Automated testing is in place for the form submission page. It checks to see if the expected type is what the current type is. i.e is the recipie_title a string?

@@ -26,6 +26,7 @@
             </div>
         </form>
     </div>
+   
     <div class="result-hits">
         <h2 class="text-center">Results {{sr + 1}} to {% if nh > maxresults %} {{maxresults}} {% else %} {{nh}} {% endif %} of {{maxresults}}</h2>
         {% for res in results  %}
@@ -35,11 +36,11 @@
                 {% if loop.index > sr and loop.index <= sr + 10 %}
                     <div id="hit-{{res._id}}" class="result-hit">
                         <header><h4>{{res.recipie_title}}</h4></header>
-                        <main>
+                        <div class="hit-main">
                             {% autoescape false %}
                                 {{res.recipie_description}}
                             {% endautoescape %}
-                        </main>
+                        </div>
                         <footer>
                             <a href="{{url_for('recipie', id=res._id)}}" class="btn btn-info">View Full Information</a>
                             <div class="pull-right"><strong>Allergins</strong>
@@ -65,4 +66,5 @@
         </ul>
     {% endif %}
 </div>
+
 {% endblock %}

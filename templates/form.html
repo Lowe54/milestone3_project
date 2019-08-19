@@ -19,21 +19,21 @@
                 <div class="form-group">
                         <label class="label" for="recipie_description">Recipie Description</label>
                         <div class="control">
-                            <textarea class="form-control" name="recipie_description" placeholder="Please enter a short description of the recipie" value="">{{recipie['recipie_description']}}</textarea>
+                            <textarea class="form-control" id="recipie_description" name="recipie_description" placeholder="Please enter a short description of the recipie">{{recipie['recipie_description']}}</textarea>
                         </div>
                     </div>
                 <div class="form-group">
                     <label class="label" for="recipie_instructions">Cooking Instructions</label>
                     <div class="control">
-                        <textarea class="form-control" name="recipie_instructions" placeholder="Please enter cooking instructions">{{recipie['recipie_instructions']}}</textarea>
+                        <textarea class="form-control" id="recipie_instructions" name="recipie_instructions" placeholder="Please enter cooking instructions">{{recipie['recipie_instructions']}}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
                         <label class="label" for="recipie_ingredients">Recipie Ingredients</label>
-                        <textarea class="form-control"  name="recipie_ingredients" id="recipie_ingredients" placeholder="Recipie Ingredients">{{recipie['recipie_ingredients']}}</textarea>
+                        <textarea class="form-control" name="recipie_ingredients" id="recipie_ingredients" placeholder="Recipie Ingredients">{{recipie['recipie_ingredients']}}</textarea>
                 </div>
                 <div class="form-group">
-                    <label class="label" for="recipie_allergins">Does this recipie contain any of the following allergins (Tick all that apply)</label>
+                    <label>Does this recipie contain any of the following allergins (Tick all that apply)</label>
                     <div class="control">
                     {% for allergin in allerginlist %}
                    

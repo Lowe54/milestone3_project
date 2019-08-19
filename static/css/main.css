@@ -1389,7 +1389,7 @@ html {
       color: black;
       border-bottom: 3px solid black;
       margin-bottom: 0; }
-    .result-hits .result-hit main {
+    .result-hits .result-hit .hit-main {
       background-color: #e6e6e6;
       padding: 15px; }
     .result-hits .result-hit footer {

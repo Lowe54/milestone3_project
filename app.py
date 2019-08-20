@@ -279,7 +279,7 @@ def recipie():
             return redirect('/')
         title = rec['recipie_title'] + " | RecipieDB"
         c_date = convertDate(rec['createdDate'])
-        if rec['updatedDate'] is None:
+        if rec['updatedDate'] is not None:
             u_date = convertDate(rec['updatedDate'])
         else:
             u_date = None

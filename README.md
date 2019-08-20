@@ -1,10 +1,62 @@
 # Milestone Project 3 for Fullstack Web Developer Course
 
+This project is designed to be a online recipie store / cookbook that anyone can contribute to.
 
+It contains a text based search off each recipie title, and has a fully built pagination when more than 10 recipies are listed 
  
 ## UX
  
+I decided to keep a neutral colour scheme for the project, as it made the results etc.. look streamlined
 
+### Mockups
+
+#### Home page
+[Homepage]: readme_images/mockups/index_page.png
+![Homepage]
+
+#### Recipie Page
+[Recipiepage]: readme_images/mockups/recipie_view.png
+
+![Recipiepage]
+#### Results Page
+[ResultsPage]: readme_images/mockups/results_page.png
+
+![ResultsPage]
+#### Add / Edit Form
+[Form]: readme_images/mockups/results_page.png
+
+![Form]
+#### Statistics page
+[StatisticsPage]: readme_images/mockups/statistics_page.png
+
+![StatisticsPage]
+### Differences between mockups and live site
+
+#### General
+
+The search bar was moved to the right hand side of the navbar as a inline form, this was made since there was no sense in having a tiny one field form taking up 75% / 80% of the page. It also allowed it to be more easily displayed on mobile devices.
+
+#### Homepage
+
+I dropped the planned carousel / tab layout in favor of a series of cards showing the most liked recipies. The links in the sidebar were moved to the main navbar, in order to allow them to be shown on mobile view across all pages
+
+#### Form page
+
+Since there was no need for a sidebar, and all potential links were moved to the navbar (See the general section above for reasoning for this change). The form section instead went 100% width but was centralised on the page.
+
+#### Results page
+
+The country of origin field was not implemented, therefore I shifted the allergin information to where this information would have been displayed, and instead added a 'View more information' button in the bottom left of the result hit.
+
+#### Recipie page
+
+The planned sidebar was switched over to the right hand side of the page, with the like/dislike buttons being moved above the recipie actions button.
+
+The ingredients / instructions / implements was changed to be a tab set below the description
+
+#### Statistics page
+
+The planned sidebar was removed since the main links appear in the navbar, instead the graph section appears across the whole page.
 
 ### User stories
 
@@ -13,7 +65,10 @@
 ## Features
 
 ### Existing Features
-
+- Results filtering
+    - The project includes a custom made allergin filter, which allows for multiple allergins to be excluded from the result set
+- Custom pagination
+    - The project includes a pagination which takes effect once more than 10 recipies are displayed.
 
 ### Features Left to Implement
 
@@ -21,6 +76,8 @@
     -   This was initially included, however due to time constraints and fustration I removed it in order to get the application as a whole working, otherwise each time a record was added or updated, it threw a 'Document failed Validation' error.
 -   More graphs on the statstics page
     - Considering the fact that a created date and updated date is stored within the database and written to the 'collection.json' file, there is ample scope to add a created per month graph.
+-   More filters
+    - There is room to add extra filters to the results, for example a list of pre-sent implements, which would replace the 'recipie_implements' field, as the filter would not be able to support free text in it's current state.
 
 ## Technologies Used
 

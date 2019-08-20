@@ -8,6 +8,11 @@ It contains a text based search off each recipie title, and has a fully built pa
  
 I decided to keep a neutral colour scheme for the project, as it made the results etc.. look streamlined
 
+In terms of the navigation of the site, instead of having multiple sidebars, all the neccessary links were added to one main navbar at the top, this allows access to the add a recipie page, results page via a search button, statistics page and a link back to the index page.
+
+This gives the user access to all the main pages without having to scroll down the current page.
+
+
 ### Mockups
 
 #### Home page
@@ -76,6 +81,8 @@ The planned sidebar was removed since the main links appear in the navbar, inste
     - The project includes a custom made allergin filter, which allows for multiple allergins to be excluded from the result set. This could be expanded on to include other fields, but due to time constraints this was ommited (See Features left to implement section)
 - Custom pagination
     - The project includes a pagination which takes effect once more than 10 recipies are displayed.
+- Flash messaging
+    - A success/error message is displayed to the user when they add/update a recipie, in addition if they try to access a recipie that does not exist, an error message will be displayed.
 
 ### Features Left to Implement
 
@@ -86,6 +93,8 @@ The planned sidebar was removed since the main links appear in the navbar, inste
 -   More filters
     - There is room to add extra filters to the results, for example a list of pre-sent implements, which would replace the 'recipie_implements' field, as the filter would not be able to support free text in it's current state.
     - In addition, there is scope to add the 'type of meal' and 'difficulty' fields as filters.
+-   Image storage
+    - Since heroku has no native support for image upload/storage **
 
 ## Technologies Used
 

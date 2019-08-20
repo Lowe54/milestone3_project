@@ -1,8 +1,8 @@
 # Milestone Project 3 for Fullstack Web Developer Course
 
-This project is designed to be a online recipie store / cookbook that anyone can contribute to.
+This project is designed to be a online recipie store / cookbook that anyone can contribute to. It is intended for people who would enjoy sharing recipies, rating them based off how much they have enjoyed them.
 
-It contains a text based search off each recipie title, and has a fully built pagination when more than 10 recipies are listed 
+It contains a text based search off each recipie title, and has a fully built pagination when more than 10 recipies are listed
  
 ## UX
  
@@ -60,13 +60,20 @@ The planned sidebar was removed since the main links appear in the navbar, inste
 
 ### User stories
 
+| User story # | What am I looking for                                                                                                                            |
+|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1            | I am user who is looking for a place to share my family recipie                                                                                  |
+| 2            | I am a user who is looking for a recipie, but am allergic to fish                                                                                |
+| 3            | I am a food critic who likes to browse public cookbooks and rate the recipies listed                                                             |
+| 4            | I am a member of the public who wants to find pasta recipies                                                                                     |
+| 5            | I am a member of the public who is interested in finding certain recipie, but not those that contain eggs and mustard, as I am allergic to those |
 
 
 ## Features
 
 ### Existing Features
 - Results filtering
-    - The project includes a custom made allergin filter, which allows for multiple allergins to be excluded from the result set
+    - The project includes a custom made allergin filter, which allows for multiple allergins to be excluded from the result set. This could be expanded on to include other fields, but due to time constraints this was ommited (See Features left to implement section)
 - Custom pagination
     - The project includes a pagination which takes effect once more than 10 recipies are displayed.
 
@@ -78,6 +85,7 @@ The planned sidebar was removed since the main links appear in the navbar, inste
     - Considering the fact that a created date and updated date is stored within the database and written to the 'collection.json' file, there is ample scope to add a created per month graph.
 -   More filters
     - There is room to add extra filters to the results, for example a list of pre-sent implements, which would replace the 'recipie_implements' field, as the filter would not be able to support free text in it's current state.
+    - In addition, there is scope to add the 'type of meal' and 'difficulty' fields as filters.
 
 ## Technologies Used
 
@@ -97,6 +105,17 @@ The planned sidebar was removed since the main links appear in the navbar, inste
     - Used to implement the graphs in the [statistics page](https://lowe541-milestone3-project.herokuapp.com/stats)
 
 ## Testing
+
+### User story testing
+
+| User story # | What am I looking for                                                                                                                            | How was this achieved?                                                                                  |
+|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| 1            | I am user who is looking for a place to share my family recipie                                                                                  | By Clicking on the 'Add a new recipie' link in the navbar                                               |
+| 2            | I am a user who is looking for a recipie, but am allergic to fish                                                                                | By clicking on 'Search', then selecting the 'fish' option in the allergin filter.                       |
+| 3            | I am a food critic who likes to browse public cookbooks and rate the recipies listed                                                             | By clicking on 'Search', then viewing a recipie details, there is a like/dislike button in each recipie |
+| 4            | I am a member of the public who wants to find pasta recipies                                                                                     | Enter 'Pasta' in the search bar, then click on 'search'                                                 |
+| 5            | I am a member of the public who is interested in finding certain recipie, but not those that contain eggs and mustard, as I am allergic to those | By clicking on 'Search', then selecting the 'eggs' and 'mustard' options in the allergin filter.        |
+
 
 ### Code Validation
 

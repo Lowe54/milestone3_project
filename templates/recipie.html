@@ -32,9 +32,17 @@
         </div>
     </div>
     <div id="side_content">
-        <a id="like_button" class="btn btn-success action-button" data-id="{{recipie['_id']}}"><i class="fas fa-thumbs-up"></i>Like ({% if recipie['likes'] is defined %} <span id="l_count">{{recipie['likes']}}</span> {% else %} <span id="l_count">0</span> {% endif %})</a>
-        <a id="dislike_button" class="btn btn-danger action-button" data-id="{{recipie['_id']}}"><i class="fas fa-thumbs-down"></i>Dislike ({% if recipie['dislikes'] is defined %} <span id="d_count">{{recipie['dislikes']}}</span> {% else %} <span id="d_count">0</span> {% endif %})</a>
-        <a class="btn btn-info action-button" href="{{url_for('form', id=recipie['_id'], edit=1)}}" title="Edit {{recipie[recipie_title]}}">Edit this recipie</a>
+        <aside class="">
+            <a id="like_button" class="btn btn-success" data-id="{{recipie['_id']}}"><i class="fas fa-thumbs-up"></i>Like ({% if recipie['likes'] is defined %} <span id="l_count">{{recipie['likes']}}</span> {% else %} <span id="l_count">0</span> {% endif %})</a>
+            <a id="dislike_button" class="btn btn-danger" data-id="{{recipie['_id']}}"><i class="fas fa-thumbs-down"></i>Dislike ({% if recipie['dislikes'] is defined %} <span id="d_count">{{recipie['dislikes']}}</span> {% else %} <span id="d_count">0</span> {% endif %})</a>
+        </aside>
+        <aside class="action-section">
+            <h3>Actions</h3>
+            <div class="row">
+                <a class="btn btn-info action-button" href="{{url_for('form', id=recipie['_id'], edit=1)}}" title="Edit {{recipie[recipie_title]}}">Edit this recipie</a>
+                <a class="btn btn-danger action-button" href="{{url_for('deleteRecipie', id=recipie['_id'])}}" title="Delete {{recipie[recipie_title]}}">Delete this recipie</a>
+            </div>
+        </aside>
     </div>
 </div>
 {% endblock %}

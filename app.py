@@ -287,12 +287,14 @@ def deleteRecipie():
     '''
     Script to delete a recipie
     '''
-    record_id = request.args.get('recordID')
+    record_id = request.args.get('id')
+    if record_id == None:
+        flash('Error deleting record, please try again', 'error')
+        return redirect('/')
     recipies = mongo.db.recipies
-
     recipies.remove({'_id': ObjectId(record_id)})
     flash('Record successfully deleted', 'success')
-    return redirect('/index')
+    return redirect('/')
 @app.route('/stats')
 def stats():
     '''

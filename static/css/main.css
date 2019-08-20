@@ -1432,12 +1432,17 @@ html {
     border-radius: 0;
     width: 100%; }
 
-#content {
-  display: flex; }
-
 #side_content {
   flex: 0 0 33.3333333333%;
-  max-width: 33.3333333333%; }
+  max-width: 33.3333333333%;
+  float: right;
+  display: inline-block; }
+@media(max-width:768px) {
+  #side_content {
+    flex: 0 0 100%;
+    max-width: 100%;
+    display: block;
+    float: left; } }
   #side_content a {
     color: white; }
   #side_content .action-button {
@@ -1446,7 +1451,13 @@ html {
 
 #main_content {
   flex: 0 0 66.6666666667%;
-  max-width: 66.6666666667%; }
+  max-width: 66.6666666667%;
+  display: inline-block; }
+@media(max-width:768px) {
+  #main_content {
+    flex: 0 0 100%;
+    max-width: 100%;
+    display: block; } }
   #main_content .twocol-split {
     display: inline;
     flex: 0 0 50%;

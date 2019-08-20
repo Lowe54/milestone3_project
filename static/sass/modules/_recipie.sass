@@ -1,13 +1,22 @@
-#content
-    display: flex
 #side_content
     @include make-col(4)
+    float: right
+    display: inline-block
+    @media(max-width:768px)
+        @include make-col(12)
+        display: block
+        float: left
     a
         color: white
     .action-button
         @include make-col(12)
+        
 #main_content
+    @media(max-width:768px)
+        @include make-col(12)
+        display: block
     @include make-col(8)
+    display: inline-block
     .twocol-split
         display: inline
         div

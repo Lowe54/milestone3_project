@@ -1,7 +1,7 @@
 import os
 import pymongo
 from flask_pymongo import PyMongo, MongoClient
-from flask import Flask, render_template,request,redirect,url_for
+from flask import Flask, flash, render_template,request,redirect,url_for
 from bson.objectid import ObjectId
 import json
 import datetime
@@ -100,14 +100,16 @@ def submit():
     printtest('recipie_allergins',allergins, list)
 
     #While the type is a bson.ObjectID, it passes it through as a string value, hence checking for a str
-    is_expected_type('ObjectId',recipie_id, str)
-    printtest('ObjectId',recipie_id, str)
+    if recipie_id != None:
+        is_expected_type('ObjectId',recipie_id, str)
+        printtest('ObjectId',recipie_id, str)
     #Dates do not have their own type in python, therefore we check for a string, which the datetime library will convert for us
     is_expected_type('Created Date',createdDate, str)
     printtest('Created Date',createdDate, str)
-
-    is_expected_type('Updated Date',updatedDate, str)
-    printtest('Updated Date',updatedDate, str)
+    # Since new records do not contain an updated date, we need to skip this
+    if updatedDate != None:
+        is_expected_type('Updated Date',updatedDate, str)
+        printtest('Updated Date',updatedDate, str)
 
     is_expected_type('Likes',likes, int)
     printtest('Likes',likes, int)
@@ -128,9 +130,11 @@ def submit():
     data = {"recipie_title": title, "recipie_description": description, "recipie_instructions":instructions, "recipie_ingredients": ingredients,"recipie_allergins": allergins, "createdDate":createdDate, "updatedDate": updatedDate, "recipie_difficulty": difficulty, "likes": likes, "dislikes": dislikes, "recipie_mealtype": mealtype, "recipie_implements": toolsrequired}
     recipies = mongo.db.recipies
     if not recipie_id:
+        flash('Recipie added', 'success')
         recipies.insert_one(data)
         return redirect('/results/')
     else:
+        flash('Recipie updated', 'success')
         recipies.update({"_id": ObjectId(recipie_id)}, data)
         return redirect('/results/')
 
@@ -233,6 +237,9 @@ def recipie():
     if request.args.get('id'):
         record_id = request.args.get('id')
         rec = mongo.db.recipies.find_one({"_id": ObjectId(record_id)})
+        if rec == None:
+            flash('Record Not Found', 'error')
+            return redirect('/')
         title = rec['recipie_title'] + " | RecipieDB"
         c_date = convertDate(rec['createdDate'])
         if None != rec['updatedDate']:
@@ -275,6 +282,17 @@ def addDislike():
     
     return "Successfully added dislike"
 
+@app.route('/deleteRecipie')
+def deleteRecipie():
+    '''
+    Script to delete a recipie
+    '''
+    record_id = request.args.get('recordID')
+    recipies = mongo.db.recipies
+
+    recipies.remove({'_id': ObjectId(record_id)})
+    flash('Record successfully deleted', 'success')
+    return redirect('/index')
 @app.route('/stats')
 def stats():
     '''

@@ -8,22 +8,43 @@
     <div id="main_content">
         <h1>{{recipie['recipie_title']}}</h1>
         <hr/>
+        {% if recipie['recipie_allergins'] %}
+        <div class="alert alert-danger">
+            This recipie contains the following allergins:
+            <ul>
+            {% for allergin in recipie['recipie_allergins'] %}
+                <li>{{allergin}}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
         <h2>Description</h2>
             {% autoescape false %}
                 {{recipie['recipie_description']}}
             {% endautoescape %}
         <div class="twocol-split">
-            <div>
-                <h3>Recipie Ingredients</h3>
-                {% autoescape false %}
-                    {{recipie['recipie_ingredients']}}
-                {% endautoescape %}
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="recipie-instructions" data-toggle="tab" href="#recipie-instructions-tab" role="tab" aria-controls="recipie-instructions-tab" aria-selected="true">Cooking Instructions</a>
+                <a class="nav-item nav-link" id="recipie-ingredients" data-toggle="tab" href="#recipie-ingredients-tab" role="tab" aria-controls="nav-profile" aria-selected="false">Ingredients Needed</a>
+                <a class="nav-item nav-link" id="recipie-implements" data-toggle="tab" href="#recipie-implements-tab" role="tab" aria-controls="nav-contact" aria-selected="false">Implements Needed</a>
             </div>
-            <div>
-                <h3>Cooking Instructions</h3>
-                {% autoescape false %}
-                    {{recipie['recipie_instructions']}}
-                {% endautoescape %}
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="recipie-instructions-tab" role="tabpanel" aria-labelledby="recipie-instructions">
+                    {% autoescape false %}
+                        {{recipie['recipie_instructions']}}
+                    {% endautoescape %}
+                      
+                </div>
+                <div class="tab-pane fade" id="recipie-ingredients-tab" role="tabpanel" aria-labelledby="recipie-ingredients">
+                    {% autoescape false %}
+                        {{recipie['recipie_ingredients']}}
+                    {% endautoescape %}
+                </div>
+                <div class="tab-pane fade" id="recipie-implements-tab" role="tabpanel" aria-labelledby="recipie-implements">
+                    {% autoescape false %}
+                        {{recipie['recipie_implements']}}
+                    {% endautoescape %}
+                </div>
             </div>
             <small>Created On {{createdDate}}</small><br/>
             {% if updatedDate != None %}

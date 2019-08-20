@@ -11,8 +11,7 @@ app = Flask(__name__)
 app.config["MONGO_DB_NAME"] = 'recipie_db'
 env = "@milestone4db-c4m84.mongodb.net/recipie_db?retryWrites=true"
 if __name__ == '__main__':
-    password = os.getEnv(PASSWORD)
-    app.config["MONGO_URI"] = "mongodb+srv://root:"+password+env
+    app.config["MONGO_URI"] = "mongodb+srv://root:os.getEnv(PASSWORD)"+env
 else:
     password = 'Will0w2L11'
     app.config["MONGO_URI"] = "mongodb+srv://root:"+password+env

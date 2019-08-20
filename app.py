@@ -74,6 +74,7 @@ def submit():
     dislikes = int(request.form.get('dislikes', 0))
     difficulty = request.form.get('recipie_difficulty')
     mealtype = request.form.get('recipie_mealtype')
+    toolsrequired = request.form.get('recipie_implements')
 
     # custom print to file for the tests
     def printtest(label,field,expectedtype):
@@ -119,8 +120,12 @@ def submit():
     
     is_expected_type('recipie_mealtype', mealtype, str)
     printtest('recipie_mealtype',mealtype, str)
+
+    is_expected_type('recipie_implements', toolsrequired, str)
+    printtest('recipie_implements',toolsrequired, str)
+
     file.close()
-    data = {"recipie_title": title, "recipie_description": description, "recipie_instructions":instructions, "recipie_ingredients": ingredients,"recipie_allergins": allergins, "createdDate":createdDate, "updatedDate": updatedDate, "recipie_difficulty": difficulty, "likes": likes, "dislikes": dislikes, "recipie_mealtype": mealtype}
+    data = {"recipie_title": title, "recipie_description": description, "recipie_instructions":instructions, "recipie_ingredients": ingredients,"recipie_allergins": allergins, "createdDate":createdDate, "updatedDate": updatedDate, "recipie_difficulty": difficulty, "likes": likes, "dislikes": dislikes, "recipie_mealtype": mealtype, "recipie_implements": toolsrequired}
     recipies = mongo.db.recipies
     if not recipie_id:
         recipies.insert_one(data)

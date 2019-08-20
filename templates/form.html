@@ -33,6 +33,10 @@
                         <textarea class="form-control" name="recipie_ingredients" id="recipie_ingredients" placeholder="Recipie Ingredients">{{recipie['recipie_ingredients']}}</textarea>
                 </div>
                 <div class="form-group">
+                    <label class="label" for="recipie_implements">What implements are required for this recipie?</label>
+                    <textarea class="form-control" name="recipie_implements" id="recipie_implements" placeholder="Recipie Implements">{{recipie['recipie_implements']}}</textarea>
+                </div>
+                <div class="form-group">
                     <label>Does this recipie contain any of the following allergins (Tick all that apply)</label>
                     <div class="control">
                     {% for allergin in allerginlist %}

@@ -6,15 +6,19 @@ from bson.objectid import ObjectId
 import json
 import datetime
 from testFramework import *
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config["MONGO_DB_NAME"] = 'recipie_db'
 if __name__ == '__main__':
     app.config["MONGO_URI"] = f"mongodb+srv://root:{os.environ.get('PASSWORD')}@milestone4db-c4m84.mongodb.net/recipie_db?retryWrites=true"
+    app.config["BASE_PATH"] = f"{os.environ.get('BASE_PATH')}"
 else:
     app.config["MONGO_URI"] = "mongodb+srv://root:Will0w2L11@milestone4db-c4m84.mongodb.net/recipie_db?retryWrites=true"
+    app.config["BASE_PATH"] = "./static/images"
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-
+# 3MB max file size
+app.config['MAX_CONTENT_LENGTH'] = 3 * 1024 * 1024
 mongo = PyMongo(app)
 
 
@@ -81,6 +85,15 @@ def submit():
     mealtype = request.form.get('recipie_mealtype')
     toolsrequired = request.form.get('recipie_implements')
 
+    if 'recipie_image' not in request.files:
+        image = 'awaiting_image.png'
+    else:
+        file = request.files['recipie_image']
+        image = secure_filename(file.filename)
+        print(os.path.join(app.config['BASE_PATH'], image))
+        file.save(os.path.join(app.config['BASE_PATH'], image))
+
+
     # custom print to file for the tests
     def printtest(label, field, expectedtype):
         file.write(
@@ -144,7 +157,8 @@ def submit():
             "createdDate": createdDate, "updatedDate": updatedDate,
             "recipie_difficulty": difficulty, "likes": likes,
             "dislikes": dislikes, "recipie_mealtype": mealtype,
-            "recipie_implements": toolsrequired
+            "recipie_implements": toolsrequired,
+            "recipie_image": image
             }
     recipies = mongo.db.recipies
     if not recipie_id:

@@ -1,8 +1,12 @@
 #card-container
     @include make-row()
     display: inline-flex
+    margin: -5px -5px 0 0
 .card-wrapper
-    @include make-col(6)
-    @media(max-width: 760px)
-        @include make-col(12)    
+    @media (min-width: 768px) and (max-width: 1999px)
+        @include make-col(6)
+    @media (max-width: 767px)
+        @include make-col(12)
+    @media (min-width: 1200px)
+        @include make-col(3)
     

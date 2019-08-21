@@ -35,11 +35,23 @@
             {% else %}
                 {% if loop.index > sr and loop.index <= sr + 10 %}
                     <div id="hit-{{res._id}}" class="result-hit">
-                        <header><h4>{{res.recipie_title}}</h4></header>
+                        <header><h4>{{res.recipie_title}}</h4> </header>
                         <div class="hit-main">
-                            {% autoescape false %}
-                                {{res.recipie_description}}
-                            {% endautoescape %}
+                            {% set image = res.recipie_image %}
+                            {% if image %}
+                            <div class="img-holder">
+                                <img id="recipie-image" class="img-fluid" alt="{{image}}" src="{{url_for('static', filename='images/')}}{{image}}"></img>        
+                            </div>
+                            {% else %}
+                            <div class="img-holder">
+                                <img id="recipie-image" class="img-fluid" alt="Awaiting Image" src="{{url_for('static', filename='images/awaiting_image.png')}}"></img>        
+                            </div>
+                            {% endif %}
+                            <div class="main-text">
+                                {% autoescape false %}
+                                    {{res.recipie_description}}
+                                {% endautoescape %}
+                            </div>
                         </div>
                         <footer>
                             <a href="{{url_for('recipie', id=res._id)}}" class="btn btn-info">View Full Information</a>

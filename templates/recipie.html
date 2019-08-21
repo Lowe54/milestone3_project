@@ -3,67 +3,80 @@
 <title>{{title}}</title>
 {% endblock %}
 {% block content %}
-<div id="content">
-    
-    <div id="main_content">
-        <h1>{{recipie['recipie_title']}}</h1>
-        <hr/>
-        {% if recipie['recipie_allergins'] %}
-        <div class="alert alert-danger">
-            This recipie contains the following allergins:
-            <ul>
-            {% for allergin in recipie['recipie_allergins'] %}
-                <li>{{allergin}}</li>
-            {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-        <h2>Description</h2>
-            {% autoescape false %}
-                {{recipie['recipie_description']}}
-            {% endautoescape %}
-        <div class="twocol-split">
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="recipie-instructions" data-toggle="tab" href="#recipie-instructions-tab" role="tab" aria-controls="recipie-instructions-tab" aria-selected="true">Cooking Instructions</a>
-                <a class="nav-item nav-link" id="recipie-ingredients" data-toggle="tab" href="#recipie-ingredients-tab" role="tab" aria-controls="nav-profile" aria-selected="false">Ingredients Needed</a>
-                <a class="nav-item nav-link" id="recipie-implements" data-toggle="tab" href="#recipie-implements-tab" role="tab" aria-controls="nav-contact" aria-selected="false">Implements Needed</a>
+<div id="content" class="container-fluid">
+    <div class="row">
+        <div id="main_content">
+            <h1>{{recipie['recipie_title']}}</h1>
+            <hr/>
+            <div class="container">
+                    {% if recipie['recipie_allergins'] %}
+                    <div class="alert alert-danger">
+                        This recipie contains the following allergins:
+                        <ul>
+                        {% for allergin in recipie['recipie_allergins'] %}
+                            <li>{{allergin}}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% set image = recipie['recipie_image'] %}
+                    {% if image %}
+                    <div class="img-holder">
+                        <img id="recipie-image" class="img-fluid" alt="{{image}}" src="{{url_for('static', filename='images/')}}{{image}}"></img>        
+                    </div>
+                    {% else %}
+                    <div class="img-holder">
+                        <img id="recipie-image" class="img-fluid" alt="Awaiting Image" src="{{url_for('static', filename='images/awaiting_image.png')}}"></img>        
+                    </div>
+                    {% endif %}
+                <h2>Description</h2>
+                    {% autoescape false %}
+                        {{recipie['recipie_description']}}
+                    {% endautoescape %}
+                <div class="twocol-split">
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="recipie-instructions" data-toggle="tab" href="#recipie-instructions-tab" role="tab" aria-controls="recipie-instructions-tab" aria-selected="true">Cooking Instructions</a>
+                        <a class="nav-item nav-link" id="recipie-ingredients" data-toggle="tab" href="#recipie-ingredients-tab" role="tab" aria-controls="nav-profile" aria-selected="false">Ingredients Needed</a>
+                        <a class="nav-item nav-link" id="recipie-implements" data-toggle="tab" href="#recipie-implements-tab" role="tab" aria-controls="nav-contact" aria-selected="false">Implements Needed</a>
+                    </div>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="recipie-instructions-tab" role="tabpanel" aria-labelledby="recipie-instructions">
+                            {% autoescape false %}
+                                {{recipie['recipie_instructions']}}
+                            {% endautoescape %}
+                            
+                        </div>
+                        <div class="tab-pane fade" id="recipie-ingredients-tab" role="tabpanel" aria-labelledby="recipie-ingredients">
+                            {% autoescape false %}
+                                {{recipie['recipie_ingredients']}}
+                            {% endautoescape %}
+                        </div>
+                        <div class="tab-pane fade" id="recipie-implements-tab" role="tabpanel" aria-labelledby="recipie-implements">
+                            {% autoescape false %}
+                                {{recipie['recipie_implements']}}
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                    <small>Created On {{createdDate}}</small><br/>
+                    {% if updatedDate != None %}
+                    <small>Last Updated On {{updatedDate}}</small>
+                    {% endif %}
             </div>
-            <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="recipie-instructions-tab" role="tabpanel" aria-labelledby="recipie-instructions">
-                    {% autoescape false %}
-                        {{recipie['recipie_instructions']}}
-                    {% endautoescape %}
-                      
-                </div>
-                <div class="tab-pane fade" id="recipie-ingredients-tab" role="tabpanel" aria-labelledby="recipie-ingredients">
-                    {% autoescape false %}
-                        {{recipie['recipie_ingredients']}}
-                    {% endautoescape %}
-                </div>
-                <div class="tab-pane fade" id="recipie-implements-tab" role="tabpanel" aria-labelledby="recipie-implements">
-                    {% autoescape false %}
-                        {{recipie['recipie_implements']}}
-                    {% endautoescape %}
-                </div>
-            </div>
-            <small>Created On {{createdDate}}</small><br/>
-            {% if updatedDate != None %}
-            <small>Last Updated On {{updatedDate}}</small>
-            {% endif %}
         </div>
     </div>
-    <div id="side_content">
-        <aside class="">
-            <a id="like_button" class="btn btn-success" data-id="{{recipie['_id']}}"><i class="fas fa-thumbs-up"></i>Like ({% if recipie['likes'] is defined %} <span id="l_count">{{recipie['likes']}}</span> {% else %} <span id="l_count">0</span> {% endif %})</a>
-            <a id="dislike_button" class="btn btn-danger" data-id="{{recipie['_id']}}"><i class="fas fa-thumbs-down"></i>Dislike ({% if recipie['dislikes'] is defined %} <span id="d_count">{{recipie['dislikes']}}</span> {% else %} <span id="d_count">0</span> {% endif %})</a>
-        </aside>
-        <aside class="action-section">
-            <h3>Actions</h3>
-            <div class="row">
-                <a class="btn btn-info action-button" href="{{url_for('form', id=recipie['_id'], edit=1)}}" title="Edit {{recipie[recipie_title]}}">Edit this recipie</a>
-                <a class="btn btn-danger action-button" href="{{url_for('deleteRecipie', id=recipie['_id'])}}" title="Delete {{recipie[recipie_title]}}">Delete this recipie</a>
-            </div>
-        </aside>
+        <div id="side_content">
+            <aside class="">
+                <a id="like_button" class="btn btn-success" data-id="{{recipie['_id']}}"><i class="fas fa-thumbs-up"></i>Like ({% if recipie['likes'] is defined %} <span id="l_count">{{recipie['likes']}}</span> {% else %} <span id="l_count">0</span> {% endif %})</a>
+                <a id="dislike_button" class="btn btn-danger" data-id="{{recipie['_id']}}"><i class="fas fa-thumbs-down"></i>Dislike ({% if recipie['dislikes'] is defined %} <span id="d_count">{{recipie['dislikes']}}</span> {% else %} <span id="d_count">0</span> {% endif %})</a>
+            </aside>
+            <aside class="action-section">
+                <h3>Actions</h3>
+                <div class="row">
+                    <a class="btn btn-info action-button" href="{{url_for('form', id=recipie['_id'], edit=1)}}" title="Edit {{recipie[recipie_title]}}">Edit this recipie</a>
+                    <a class="btn btn-danger action-button" href="{{url_for('deleteRecipie', id=recipie['_id'])}}" title="Delete {{recipie[recipie_title]}}">Delete this recipie</a>
+                </div>
+            </aside>
+        </div>
     </div>
 </div>
 {% endblock %}
@@ -132,20 +145,5 @@ $(document).ready(function(e){
        });
     });
 });
-//         $.ajax({
-//             type:'GET',
-//             url:'/addLike',
-//             cache:false,
-//             async:'asynchronous',
-//             dataType:'json',
-//             data:{record_id : recordId},
-//             success: function(data) {
-//                 console.log(JSON.stringify(data))
-//             },
-//             error: function(request, status) {
-//                 console.log("Error: ")
-//             }
-//    });
-
 </script>
 {% endblock %}

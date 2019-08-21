@@ -1,10 +1,8 @@
 #side_content
-    @include make-col(4)
+    @include make-col(3)
     float: right
-    display: inline-block
     @media(max-width:768px)
         @include make-col(12)
-        display: block
         float: left
     a
         color: white
@@ -14,9 +12,12 @@
 #main_content
     @media(max-width:768px)
         @include make-col(12)
-        display: block
+        // display: block
     @include make-col(8)
-    display: inline-block
+    // display: block
+    .img-holder
+        max-width: 25%
+        float: right
     .twocol-split
         display: inline
         div

@@ -11,7 +11,7 @@
     <div class="container">    
         <h1>{% if edit == '1' %}Edit {% else %}Add{% endif %} a recipie</h1>
         <div id="form-container">
-            <form method="POST" action="{{url_for('submit')}}">
+            <form method="POST" action="{{url_for('submit')}}" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="label" for="recipie_title">Recipie Title</label>
                     <input class="form-control" type="text" placeholder="Recipie Title" name="recipie_title" id="recipie_title" value="{{recipie['recipie_title']}}">
@@ -74,6 +74,11 @@
                         <option value="Lunch" {% if diff == 'Lunch' %} selected="selected" {% endif %}>Lunch</option>
                         <option value="Dinner" {% if diff == 'Dinner' %} selected="selected" {% endif %}>Dinner</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="recipie_image">If you have an image for this recipie, please upload it here</label>
+                    <br/>
+                    <input type="file" id="recipie_image" name="recipie_image"/>
                 </div>
                 <div class="form-group">
                     {% set c_date  = recipie['createdDate'] %}

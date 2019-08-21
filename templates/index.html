@@ -7,20 +7,68 @@
 {% block content %}
     <h1>{{title}}</h1>
     <h2>Our most liked recipies</h2>
-    <div class="row">
-    {% for r in recs %}
-    <div class="card-wrapper">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{r.recipie_title}}</h5>
-          <h6 class="card-subtitle text-muted">{{r.likes}} Likes</h6>
-          <a href="{{url_for('recipie', id=r._id)}}" class="btn btn-info">View Recipie</a>
-          <br/>
-          <small>See full recipie for allergin details</small>                   
-        </div>
+    <div class="container-fluid">
+      <div class="row">
+        {% for r in recs %}
+        <div class="card-wrapper card-deck">
+            <div class="card">
+                  <div class="card-body">
+                      <div class="img-wrapper">
+                  {% set image = r.recipie_image %}
+                  {% if image %}
+                    <img id="recipie-image" class="card-img-top" alt="{{image}}" src="{{url_for('static', filename='images/')}}{{image}}"></img>        
+                  {% else %}
+                    <img id="recipie-image" class="card-img-top" alt="Awaiting Image" src="{{url_for('static', filename='images/awaiting_image.png')}}"></img>        
+                  {% endif %}
+                </div>
+                <div class="card-content">
+                  <h5 class="card-title">{{r.recipie_title}}</h5>
+                  <h6 class="card-subtitle text-muted">{{r.likes}} Likes</h6>
+                    <div class="card-footer">
+                    <a href="{{url_for('recipie', id=r._id)}}" class="btn btn-info">View Recipie</a>
+                    <br/>
+                    <small>See full recipie for allergin details</small>
+                    </div>
+                </div>                   
+                  </div>
+            </div>
+          </div>
+        {% endfor %}
       </div>
     </div>
-      
-    {% endfor %}
-  </div>
+{% endblock %}
+{% block page_scripts %}
+<script>
+$(document).ready(function(e){
+    
+    setheight('.img-wrapper')
+    $(window).resize(function(e){
+      resetheight('.img-wrapper')
+      setheight('.img-wrapper')
+    });
+    function resetheight(selector){
+      $(selector).each(function(){
+        $(this).css('height', '')
+      })
+    }
+    function setheight(selector){
+      var l_height = getlargestheight(selector);
+      $(selector).each(function(){
+        if (l_height > $(this).height()){
+            $(this).css('height', l_height);
+        }
+      });
+    }
+
+    function getlargestheight(selector){
+        var c_height = 0
+        $(selector).each(function(index){
+            if($(this).outerHeight() > c_height){
+                c_height = $(this).outerHeight()
+            }
+        });
+        return c_height;
+        }
+});
+</script>
 {% endblock %}

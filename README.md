@@ -339,11 +339,12 @@ Then click on 'Reveal Config Vars'
 
 ![AppConfigVars]
 
-You need to add the following 4 variables:
+You need to add the following 5 variables:
 -   IP -> This is the IP, set it to 0.0.0.0
 -   PORT -> Can be any value you want, I set it to 5000
 -   SECRET_KEY -> Random string
 -   PASSWORD -> Your MongoDB password for the user set up, not your password to login to Mongo Atlas
+-   BASE_PATH -> Base Upload path (./static/images)
 
 ### Style Changing
 ***
@@ -363,5 +364,7 @@ If you get an `command not recognised` error, please follow the steps [here](htt
 [Easy Meatballs recipie - Betty Crocker](https://www.bettycrocker.com/recipes/easy-meatballs/2959910f-1b27-438a-9085-d40b1950db20) for the meatball image
 
 [Fish and Chips - Wikipedia](https://en.wikipedia.org/wiki/Fish_and_chips) for the fish and chips image
+
+[Beefburger - BBC good food](https://www.bbc.co.uk/food/recipes/homemadebeefburger_83644) for the burger image, which was uploaded on the live site
 ### Acknowledgements
 

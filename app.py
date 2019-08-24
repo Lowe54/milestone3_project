@@ -84,14 +84,17 @@ def submit():
     difficulty = request.form.get('recipie_difficulty')
     mealtype = request.form.get('recipie_mealtype')
     toolsrequired = request.form.get('recipie_implements')
-
-    if 'recipie_image' not in request.files:
-        image = 'awaiting_image.png'
+    currentimage = request.form.get('currentimage')
+    if currentimage is not None:
+        image = currentimage
     else:
-        file = request.files['recipie_image']
-        image = secure_filename(file.filename)
-        print(os.path.join(app.config['BASE_PATH'], image))
-        file.save(os.path.join(app.config['BASE_PATH'], image))
+        if 'recipie_image' not in request.files:
+            image = 'awaiting_image.png'
+        else:
+            file = request.files['recipie_image']
+            image = secure_filename(file.filename)
+            print(os.path.join(app.config['BASE_PATH'], image))
+            file.save(os.path.join(app.config['BASE_PATH'], image))
 
 
     # custom print to file for the tests

@@ -76,9 +76,18 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    {% set has_current_image = recipie['recipie_image'] %}
                     <label for="recipie_image">If you have an image for this recipie, please upload it here</label>
                     <br/>
+                    {% if has_current_image %}
+                    <img src="{{url_for('static', filename='images/')}}{{has_current_image}}" height="auto" width="15%"/>
+                    <input type="hidden" name="currentimage" value="{{has_current_image}}"/>
+                    <br/>
+                    <p><small>If you wish to replace this image, please use the file select below</small></p>
+                    
+                    {% endif %}
                     <input type="file" id="recipie_image" name="recipie_image"/>
+                    <p><small><strong>Max image size of 3MB</strong></small></p>
                 </div>
                 <div class="form-group">
                     {% set c_date  = recipie['createdDate'] %}

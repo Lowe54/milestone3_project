@@ -85,7 +85,7 @@ def submit():
     mealtype = request.form.get('recipie_mealtype')
     toolsrequired = request.form.get('recipie_implements')
     currentimage = request.form.get('currentimage')
-    if currentimage is not None:
+    if currentimage is not None and 'recipie_image' in request.files:
         image = currentimage
     else:
         if 'recipie_image' not in request.files:

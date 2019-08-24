@@ -611,3 +611,52 @@ Expecting type of <class 'str'>, for field recipie_implements
 True
 Test Passed 
 ********* 
+*****Testing submission for Test upload************
+Expecting type of <class 'str'>, for field recipie_title
+True
+Test Passed 
+********* 
+Expecting type of <class 'str'>, for field recipie_description
+True
+Test Passed 
+********* 
+Expecting type of <class 'str'>, for field recipie_ingredients
+True
+Test Passed 
+********* 
+Expecting type of <class 'list'>, for field recipie_allergins
+True
+Test Passed 
+********* 
+Expecting type of <class 'str'>, for field ObjectId
+True
+Test Passed 
+********* 
+Expecting type of <class 'str'>, for field Created Date
+True
+Test Passed 
+********* 
+Expecting type of <class 'str'>, for field Updated Date
+True
+Test Passed 
+********* 
+Expecting type of <class 'int'>, for field Likes
+True
+Test Passed 
+********* 
+Expecting type of <class 'int'>, for field Dislikes
+True
+Test Passed 
+********* 
+Expecting type of <class 'str'>, for field recipie_difficulty
+True
+Test Passed 
+********* 
+Expecting type of <class 'str'>, for field recipie_mealtype
+True
+Test Passed 
+********* 
+Expecting type of <class 'str'>, for field recipie_implements
+True
+Test Passed 
+********* 

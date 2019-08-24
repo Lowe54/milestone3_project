@@ -85,18 +85,18 @@ def submit():
     mealtype = request.form.get('recipie_mealtype')
     toolsrequired = request.form.get('recipie_implements')
     currentimage = request.form.get('currentimage')
-    if currentimage is not None and 'recipie_image' in request.files:
-        image = currentimage
-    else:
-        if 'recipie_image' not in request.files:
-            image = 'awaiting_image.png'
-        else:
+    # Check to see if there is a current image
+    if currentimage is not None:
+        # Then check to see if a new image has been passed through
+        if 'recipie_image' in request.files:
             file = request.files['recipie_image']
             image = secure_filename(file.filename)
             print(os.path.join(app.config['BASE_PATH'], image))
             file.save(os.path.join(app.config['BASE_PATH'], image))
-
-
+        elif currentimage is 'awaiting_image.png':
+            image = 'awaiting_image.png'
+        else:
+            image = currentimage 
     # custom print to file for the tests
     def printtest(label, field, expectedtype):
         file.write(

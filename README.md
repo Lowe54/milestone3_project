@@ -3,7 +3,7 @@
 This project is designed to be a online recipie store / cookbook that anyone can contribute to. It is intended for people who would enjoy sharing recipies, rating them based off how much they have enjoyed them.
 
 It contains a text based search off each recipie title, and has a fully built pagination when more than 10 recipies are listed
- 
+
 ## UX
  
 I decided to keep a neutral colour scheme for the project, as it made the results etc.. look streamlined
@@ -189,30 +189,40 @@ It updates the testresults.txt file each time a record is added or updated with 
 
 ### How it Displays
 
+[homeDesktop]: readme_images/display/Homepage_Desktop.png
+[homeMobile]: readme_images/display/Homepage_Mobile.png
+[formDesktop]: readme_images/display/Form_Desktop.png
+[formMobile]: readme_images/display/Form_Mobile.png
+[recipieDesktop]: readme_images/display/RecipieView_Desktop.png
+[recipieMobile]: readme_images/display/RecipieView_Mobile.png
+[resultsDesktop]: readme_images/display/Results_desktop.png
+[resultsMobile]: readme_images/display/Results_mobile.png
+[statsDesktop]: readme_images/display/statistics_desktop.png
+[statsMobile]: readme_images/display/statistics_Mobile.png
 #### Desktop
 
 ##### Home
-
+![homeDesktop]
 ##### Results
-
+![resultsDesktop]
 ##### Recipie add/edit form
-
+![formDesktop]
 ##### Recipie View
-
+![recipieDesktop]
 ##### Statistics
-
+![statsDesktop]
 #### Mobile
-
+All screenshots taken by emulating an iphone X
 ##### Home
-
+![homeMobile]
 ##### Results
-
+![resultsMobile]
 ##### Recipie add/edit form
-
+![formMobile]
 ##### Recipie View
-
+![recipieMobile]
 ##### Statistics
-
+![statsMobile]
 ## Deployment
 
 The site is available to view via [here](https://lowe541-milestone3-project.herokuapp.com/)

@@ -93,8 +93,8 @@ The planned sidebar was removed since the main links appear in the navbar, inste
 -   More filters
     - There is room to add extra filters to the results, for example a list of pre-sent implements, which would replace the 'recipie_implements' field, as the filter would not be able to support free text in it's current state.
     - In addition, there is scope to add the 'type of meal' and 'difficulty' fields as filters.
--   Image storage
-    - Since heroku has no native support for image upload/storage **
+-   Image upload - limit file types
+    - At this time the image upload does not check what file type is being uploaded.
 
 ## Technologies Used
 
